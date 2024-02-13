@@ -1,7 +1,11 @@
-import ComingSoon from './pages/ComingSoon';
+import HomePage from './pages/Home/HomePage';
 
 const App = () => {
-  return <ComingSoon></ComingSoon>;
+  return (
+    <>
+      <HomePage />
+    </>
+  );
 };
 
 export default App;
