@@ -32,32 +32,32 @@ const Hero = () => {
         className='rounded-xl'
       >
         <img
-          src='src/assets/sitting.jpeg'
+          src='/assets/sitting.jpeg'
           alt='sitting room'
           className='w-3/4 mx-auto '
         />
         <img
-          src='src/assets/outdoor.jpeg'
+          src='/assets/outdoor.jpeg'
           alt='image 2'
           className='w-3/4 mx-auto lg:h-[33rem] object-cover'
         />
         <img
-          src='src/assets/outdoor-overview.jpeg'
+          src='/assets/outdoor-overview.jpeg'
           alt='image 2'
           className='w-3/4 mx-auto lg:h-[33rem] object-cover'
         />
         <img
-          src='src/assets/out.jpeg'
+          src='/assets/out.jpeg'
           alt='outdoor room'
           className='w-3/4 mx-auto  '
         />
         <img
-          src='src/assets/bath.jpeg'
+          src='/assets/bath.jpeg'
           alt='image 2'
           className='w-3/4 mx-auto lg:h-[33rem] object-cover'
         />
         <img
-          src='src/assets/bathroom.jpeg'
+          src='/assets/bathroom.jpeg'
           alt='image 2'
           className='w-3/4 mx-auto lg:h-[33rem] object-cover'
         />
