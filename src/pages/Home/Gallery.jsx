@@ -3,31 +3,31 @@ import { Typography } from '@material-tailwind/react';
 const Gallery = () => {
   const data = [
     {
-      imageLink: '/src/assets/uncompleted.jpeg',
+      imageLink: '/assets/uncompleted.jpeg',
     },
     {
-      imageLink: '/src/assets/anambra.jpeg',
+      imageLink: '/assets/anambra.jpeg',
     },
     {
-      imageLink: '/src/assets/bath.jpeg',
+      imageLink: '/assets/bath.jpeg',
     },
     {
-      imageLink: '/src/assets/sitting.jpeg',
+      imageLink: '/assets/sitting.jpeg',
     },
     {
-      imageLink: '/src/assets/outdoor.jpeg',
+      imageLink: '/assets/outdoor.jpeg',
     },
     {
-      imageLink: '/src/assets/bathroom.jpeg',
+      imageLink: '/assets/bathroom.jpeg',
     },
     {
-      imageLink: '/src/assets/maralago.jpeg',
+      imageLink: '/assets/maralago.jpeg',
     },
     {
-      imageLink: '/src/assets/outdoor-overview.jpeg',
+      imageLink: '/assets/outdoor-overview.jpeg',
     },
     {
-      imageLink: '/src/assets/out.jpeg',
+      imageLink: '/assets/out.jpeg',
     },
   ];
   return (
