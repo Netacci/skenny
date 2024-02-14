@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
 import {
   Navbar,
-  MobileNav,
+  Collapse,
   Typography,
   IconButton,
 } from '@material-tailwind/react';
@@ -20,7 +20,7 @@ const Nav = () => {
   const navMenu = [
     { name: 'Home', link: '/' },
     { name: 'About Us', link: '/#about' },
-    { name: 'Properties', link: '/#features' },
+    { name: 'Properties', link: '/properties' },
     { name: 'Contact Us', link: '/contact' },
   ];
   const navList = (
@@ -94,7 +94,7 @@ const Nav = () => {
           </IconButton>
         </div>
       </div>
-      <MobileNav open={openNav}>{navList}</MobileNav>
+      <Collapse open={openNav}>{navList}</Collapse>
     </Navbar>
   );
 };

@@ -1,21 +1,56 @@
 import { Typography } from '@material-tailwind/react';
 
 const Gallery = () => {
+  const data = [
+    {
+      imageLink: '/src/assets/uncompleted.jpeg',
+    },
+    {
+      imageLink: '/src/assets/anambra.jpeg',
+    },
+    {
+      imageLink: '/src/assets/bath.jpeg',
+    },
+    {
+      imageLink: '/src/assets/sitting.jpeg',
+    },
+    {
+      imageLink: '/src/assets/outdoor.jpeg',
+    },
+    {
+      imageLink: '/src/assets/bathroom.jpeg',
+    },
+    {
+      imageLink: '/src/assets/maralago.jpeg',
+    },
+    {
+      imageLink: '/src/assets/outdoor-overview.jpeg',
+    },
+    {
+      imageLink: '/src/assets/out.jpeg',
+    },
+  ];
   return (
     <div className='bg-[#f4f6f8] px-4 lg:px-14 py-12'>
-      <Typography variant='h2' color='blue-gray' className='mb-2 text-center'>
-        Ongoing projects
-      </Typography>
       <Typography
-        variant='p'
+        variant='h2'
         color='blue-gray'
-        className='mb-2 text-center text-[16px] w-1/2 mx-auto mt-6'
+        className='mb-2 text-center text-2xl lg:text-4xl'
       >
-        These are some of our ongoing projects in Nigeria, They are mostly
-        clusters of our property development investment under build and sale.
-        They are mostly clusters of our property development investment under
-        build and sale.
+        Gallery
       </Typography>
+
+      <div className='grid grid-cols-1 gap-4 sm:grid-cols-2 md:grid-cols-3 mt-6'>
+        {data.map(({ imageLink }, index) => (
+          <div key={index}>
+            <img
+              className='h-40 w-full max-w-full rounded-lg object-cover object-center'
+              src={imageLink}
+              alt='gallery-photo'
+            />
+          </div>
+        ))}
+      </div>
     </div>
   );
 };
