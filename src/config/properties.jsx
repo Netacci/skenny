@@ -31,4 +31,18 @@ export const properties = [
     purpose: 'For maintenance',
     id: 3,
   },
+  {
+    title: '4 bedroom Maisonette for sale in the heart of Lagos Mainland.',
+    description: 'Located in Lagos',
+    image: (
+      <img
+        className='h-[288px] w-full'
+        src='/assets/exteriorhouse.jpeg'
+        alt='house in abuja'
+      />
+    ),
+    location: 'Lagos, Nigeria',
+    purpose: 'For sale',
+    id: 4,
+  },
 ];

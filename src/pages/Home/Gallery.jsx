@@ -29,6 +29,21 @@ const Gallery = () => {
     {
       imageLink: '/assets/out.jpeg',
     },
+    {
+      imageLink: '/assets/exteriorhouse.jpeg',
+    },
+    {
+      imageLink: '/assets/bathrooom.jpeg',
+    },
+    {
+      imageLink: '/assets/space.jpeg',
+    },
+    {
+      imageLink: '/assets/wardrobe.jpeg',
+    },
+    {
+      imageLink: '/assets/room.jpeg',
+    },
   ];
   return (
     <div className='bg-[#f4f6f8] px-4 lg:px-14 py-12'>
