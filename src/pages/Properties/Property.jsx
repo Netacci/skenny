@@ -1,49 +1,48 @@
-/* eslint-disable react/prop-types */
+import { useDispatch, useSelector } from 'react-redux';
 import Layout from '../../components/layout/Layout';
-import { Typography } from '@material-tailwind/react';
-import { properties } from '../../config/properties';
-import { useParams } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
+import { useEffect } from 'react';
+import { Card, Spinner } from '@material-tailwind/react';
+
+import 'swiper/css';
+import 'swiper/css/effect-coverflow';
+import 'swiper/css/pagination';
+import { Icon } from '@iconify/react';
+import { ROUTES } from '../../utils/routes';
+import { getSingleProperty } from '../../redux/realtor/propertiesSlice';
+import SingleProperty from '../../components/SingleProperty';
 
 const Property = () => {
-  const id = useParams().propertyId;
+  const { singleProperty, loading } = useSelector((state) => state.properties);
+  const { id } = useParams();
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
 
-  const property = properties.find((property) => property.id === Number(id));
+  useEffect(() => {
+    dispatch(getSingleProperty(id));
+  }, [dispatch, id]);
 
-  const { title, description, image, location, purpose } = property;
-  console.log(property);
   return (
-    <div className=' max-h-[768px] '>
-      <Layout>
-        <div className='px-4 lg:px-14 py-12 '>
-          <div className='w-[50%]'>{image}</div>
+    <Layout>
+      {!loading ? (
+        <Card className='  bg-opacity-20  px-4 py-2 lg:px-14 lg:py-4'>
+          <div className='flex justify-between items-center'>
+            <Icon
+              icon='material-symbols:arrow-back'
+              fontSize={24}
+              className='cursor-pointer text-blue-900'
+              onClick={() => navigate(ROUTES.home)}
+            />
+          </div>
 
-          <Typography variant='h2' color='blue-gray' className='mb-2 mt-6'>
-            {title}
-          </Typography>
-          <Typography
-            variant='p'
-            color='blue-gray'
-            className='mb-2 text-[16px] '
-          >
-            {description}
-          </Typography>
-          <Typography
-            variant='p'
-            color='blue-gray'
-            className='mb-2 text-[16px] '
-          >
-            {location}
-          </Typography>
-          <Typography
-            variant='p'
-            color='blue-gray'
-            className='mb-2 text-[16px] '
-          >
-            {purpose}
-          </Typography>
+          <SingleProperty property={singleProperty} />
+        </Card>
+      ) : (
+        <div className=' flex flex-col items-center justify-center h-screen'>
+          <Spinner />
         </div>
-      </Layout>
-    </div>
+      )}
+    </Layout>
   );
 };
 

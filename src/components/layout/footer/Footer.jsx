@@ -8,95 +8,79 @@ import { Icon } from '@iconify/react';
 const Footer = () => {
   return (
     <>
-      <footer className='bg-[#0a2233] px-4 lg:px-14 py-10 flex justify-between lg:flex-row flex-col'>
+      <footer className='bg-[#4D4D4D] px-4 lg:px-14 pt-4 flex justify-between flex-col'>
         <div>
-          <Typography
+          {/* <Typography
             variant='h2'
-            color='white'
-            className='mb-2 text-2xl lg:text-4xl '
+            color='gray'
+            className='mb-2 text-xl lg:text-2xl '
           >
             SKENNY HEIGHTS
-          </Typography>
+          </Typography> */}
           <Typography
             variant='paragraph'
             color='white'
-            className='mb-2 lg:text-[16px] text-[14px] '
+            className='lg:text-[15px] text-[14px] '
           >
             SKENNY HEIGHTS is a real estate located in UK
           </Typography>
         </div>
-        <div className='mt-6 lg:mt-0'>
-          <Typography
-            variant='h4'
-            color='white'
-            className='mb-2 text-[22px] lg:text-3xl'
-          >
-            Contact Us
-          </Typography>
-          <div className='mt-4'>
-            <div className='flex items-center mb-2  gap-2'>
-              {' '}
-              <Icon icon='ion:location-outline' className='text-white' />{' '}
-              <Typography
-                variant='paragraph'
-                color='white'
-                className=' lg:text-[16px] text-[14px]'
-              >
-                123 Uk lane, UK 123 Uk lane, UK 123 Uk lane, UK
-              </Typography>
-            </div>
-            <div className='flex items-center mb-2  gap-2'>
-              {' '}
-              <Icon icon='ph:phone-light' className='text-white' />
-              <Typography
-                as='a'
-                href='tel:+447436354692'
-                color='white'
-                className='lg:text-[16px] text-[14px] '
-              >
-                {' '}
-                +447436354692
-              </Typography>
-            </div>
-            <div className='flex items-center mb-2  gap-2'>
-              {' '}
-              <Icon icon='ph:phone-light' className='text-white' />
-              <Typography
-                as='a'
-                href='tel:+234803389926'
-                color='white'
-                className='lg:text-[16px] text-[14px] '
-              >
-                {' '}
-                +234803389926
-              </Typography>
-            </div>
-            <div className='flex items-center mb-2  gap-2'>
-              <Icon
-                icon='material-symbols-light:mail-outline'
-                className='text-white'
-              />
-              <Typography
-                as='a'
-                href='mailto:info@skenny.org'
-                color='white'
-                className='lg:text-[16px] text-[14px] '
-              >
-                {' '}
-                info@skenny.org
-              </Typography>
-            </div>
+
+        <div className='mt-4 lg:mt-0 flex flex-col lg:flex-row gap-4'>
+          <div className='flex items-center mb-2  gap-2'>
+            {' '}
+            <Icon icon='ion:location-outline' className='text-white' />{' '}
+            <Typography
+              variant='paragraph'
+              color='white'
+              className=' lg:text-[16px] text-[14px]'
+            >
+              123 Uk lane, UK 123 Uk lane, UK 123 Uk lane, UK
+            </Typography>
           </div>
-        </div>
-        <div className='mt-6 lg:mt-0'>
-          <Typography
-            variant='h4'
-            color='white'
-            className='mb-2 text-[22px] lg:text-3xl '
-          >
-            Follow Us
-          </Typography>
-          <div className='mt-4 flex justify-between'>
+          <div className='flex items-center mb-2  gap-2'>
+            {' '}
+            <Icon icon='ph:phone-light' className='text-white' />
+            <Typography
+              as='a'
+              href='tel:+447436354692'
+              color='white'
+              className='lg:text-[16px] text-[14px] '
+            >
+              {' '}
+              +447436354692
+            </Typography>
+          </div>
+          <div className='flex items-center mb-2  gap-2'>
+            {' '}
+            <Icon icon='ph:phone-light' className='text-white' />
+            <Typography
+              as='a'
+              href='tel:+234803389926'
+              color='white'
+              className='lg:text-[16px] text-[14px] '
+            >
+              {' '}
+              +234803389926
+            </Typography>
+          </div>
+          <div className='flex items-center mb-2  gap-2'>
+            <Icon
+              icon='material-symbols-light:mail-outline'
+              className='text-white'
+            />
+            <Typography
+              as='a'
+              href='mailto:info@skenny.org'
+              color='white'
+              className='lg:text-[16px] text-[14px] '
+            >
+              {' '}
+              info@skenny.org
+            </Typography>
+          </div>
+
+          <div className='mt-0 lg:mt-4 pb-6 flex flex-row gap-4'>
             <Icon icon='logos:facebook' />
             <Icon icon='skill-icons:instagram' />
             <Icon icon='skill-icons:twitter' />
