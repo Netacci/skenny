@@ -8,83 +8,77 @@ import { Icon } from '@iconify/react';
 const Footer = () => {
   return (
     <>
-      <footer className='bg-[#4D4D4D] px-4 lg:px-14 pt-4 flex justify-between flex-col'>
-        <div>
-          {/* <Typography
-            variant='h2'
-            color='gray'
-            className='mb-2 text-xl lg:text-2xl '
-          >
-            SKENNY HEIGHTS
-          </Typography> */}
-          <Typography
-            variant='paragraph'
-            color='white'
-            className='lg:text-[15px] text-[14px] '
-          >
-            SKENNY HEIGHTS is a real estate located in UK
-          </Typography>
-        </div>
+      <footer className='bg-gray-800 text-white py-8'>
+        <div className='px-4 lg:px-14 mx-auto '>
+          <div className='grid grid-cols-1 md:grid-cols-4 gap-8'>
+            <div>
+              <h3 className='text-lg font-semibold mb-4'>About Us</h3>
+              <p>
+                SKENNY HEIGHTS is a real estate company located in UK, dedicated
+                to finding your dream home.
+              </p>
+            </div>
+            <div>
+              <h3 className='text-lg font-semibold mb-4'>Links</h3>
+              <ul>
+                <li>
+                  <a href='#' className='hover:text-blue-400'>
+                    Pivacy policy
+                  </a>
+                </li>
 
-        <div className='mt-4 lg:mt-0 flex flex-col lg:flex-row gap-4'>
-          <div className='flex items-center mb-2  gap-2'>
-            {' '}
-            <Icon icon='ion:location-outline' className='text-white' />{' '}
-            <Typography
-              variant='paragraph'
-              color='white'
-              className=' lg:text-[16px] text-[14px]'
-            >
-              123 Uk lane, UK 123 Uk lane, UK 123 Uk lane, UK
-            </Typography>
+                <li>
+                  <a href='/about' className='hover:text-blue-400'>
+                    Careers
+                  </a>
+                </li>
+                <li>
+                  <a href='#' className='hover:text-blue-400'>
+                    Terms and condition
+                  </a>
+                </li>
+              </ul>
+            </div>
+            <div>
+              <h3 className='text-lg font-semibold mb-4'>Contact</h3>
+              <Typography>123 UK lane, UK 123 UK lane, UK</Typography>
+              <Typography>+447436354692</Typography>
+              <Typography>+234803389926</Typography>
+              <Typography>info@skenny.org</Typography>
+            </div>
+            <div>
+              <h3 className='text-lg font-semibold mb-4'>Newsletter</h3>
+              <form>
+                <input
+                  type='email'
+                  placeholder='Your email'
+                  className='w-full p-2 rounded mb-2 text-gray-800'
+                />
+                <button
+                  type='submit'
+                  className='bg-blue-600 text-white py-2 px-4 rounded hover:bg-blue-700 transition duration-300'
+                >
+                  Subscribe
+                </button>
+              </form>
+            </div>
           </div>
-          <div className='flex items-center mb-2  gap-2'>
-            {' '}
-            <Icon icon='ph:phone-light' className='text-white' />
-            <Typography
-              as='a'
-              href='tel:+447436354692'
-              color='white'
-              className='lg:text-[16px] text-[14px] '
-            >
-              {' '}
-              +447436354692
-            </Typography>
-          </div>
-          <div className='flex items-center mb-2  gap-2'>
-            {' '}
-            <Icon icon='ph:phone-light' className='text-white' />
-            <Typography
-              as='a'
-              href='tel:+234803389926'
-              color='white'
-              className='lg:text-[16px] text-[14px] '
-            >
-              {' '}
-              +234803389926
-            </Typography>
-          </div>
-          <div className='flex items-center mb-2  gap-2'>
-            <Icon
-              icon='material-symbols-light:mail-outline'
-              className='text-white'
-            />
-            <Typography
-              as='a'
-              href='mailto:info@skenny.org'
-              color='white'
-              className='lg:text-[16px] text-[14px] '
-            >
-              {' '}
-              info@skenny.org
-            </Typography>
-          </div>
-
-          <div className='mt-0 lg:mt-4 pb-6 flex flex-row gap-4'>
-            <Icon icon='logos:facebook' />
-            <Icon icon='skill-icons:instagram' />
-            <Icon icon='skill-icons:twitter' />
-            <Icon icon='skill-icons:linkedin' />
+          <div className='mt-8 pt-8 border-t border-gray-700 flex flex-col md:flex-row justify-between items-center'>
+            <p>&copy; 2024 SKENNY HEIGHTS. All rights reserved.</p>
+            <div className='flex space-x-4 mt-4 md:mt-0'>
+              <a href='#' className='text-2xl hover:text-blue-400'>
+                <Icon icon='logos:facebook' />
+              </a>
+              <a href='#' className='text-2xl hover:text-blue-400'>
+                <Icon icon='skill-icons:instagram' />
+              </a>
+              <a href='#' className='text-2xl hover:text-blue-400'>
+                <Icon icon='skill-icons:twitter' />
+              </a>
+              <a href='#' className='text-2xl hover:text-blue-400'>
+                <Icon icon='skill-icons:linkedin' />
+              </a>
+            </div>
           </div>
         </div>
       </footer>

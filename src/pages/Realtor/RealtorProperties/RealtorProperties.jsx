@@ -60,9 +60,15 @@ const RealtorProperties = () => {
       <div className='flex justify-between mt-6 px-4 lg:px-14'>
         <div className='w-[60%]  '>
           <Input
-            label='Search property'
-            size='lg'
             type='search'
+            placeholder='Search for properties...'
+            className='pr-12 rounded-full bg-gray/90 text-gray-900 border-gray-900 '
+            labelProps={{
+              className: 'hidden',
+            }}
+            containerProps={{
+              className: 'min-w-0',
+            }}
             onChange={handleSearch}
             value={search}
           />

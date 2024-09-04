@@ -82,49 +82,46 @@ const Nav = () => {
   ];
 
   return (
-    <Navbar className='sticky top-0 z-10 h-max max-w-full rounded-none px-4 py-2 lg:px-14 lg:py-4'>
-      <div className='flex items-center justify-between text-blue-gray-900'>
+    <Navbar className='sticky top-0 z-10 h-max max-w-full rounded-none px-4 py-2 lg:px-8 lg:py-4 bg-white/90 backdrop-blur-sm border-b border-gray-200'>
+      <div className='flex items-center justify-between'>
         <Typography
           as='a'
-          href='#'
-          className='mr-2 lg:mr-4 cursor-pointer py-1.5 font-bold text-xl lg:text-3xl'
-          color='deep-orange'
+          href='/'
+          className='mr-4 cursor-pointer py-1.5 font-bold text-2xl lg:text-3xl bg-gradient-to-r from-blue-600 to-orange-500 bg-clip-text text-transparent hover:text-transparent'
         >
           SKENNY HEIGHTS
         </Typography>
 
-        <div className='flex items-center lg:gap-4'>
-          {user?.auth?.token ? (
-            <Typography className='mr-2'>
-              Welcome, {user?.first_name}
-            </Typography>
-          ) : (
-            <div className='mr-4 hidden lg:block'>{navList}</div>
-          )}
+        <div className='flex items-center gap-4'>
+          <div className='mr-4 hidden lg:block'>{navList}</div>
 
-          {/* These buttons will not show if user is already logged in or if realtor is logged in */}
-          {user?.auth?.token ? null : (
-            <div className=' gap-2 hidden lg:flex'>
+          {!user?.auth?.token && (
+            <div className='gap-2 hidden lg:flex'>
               <Button
-                color='deep-orange'
-                onClick={() => navigate(ROUTES.register)}
+                variant='text'
+                size='sm'
+                color='blue-gray'
+                className='rounded-full'
+                onClick={() => navigate(ROUTES.login)}
               >
-                Register
+                Log In
               </Button>
               <Button
-                onClick={() => navigate(ROUTES.login)}
-                color='deep-orange'
+                size='sm'
+                className='rounded-full bg-gradient-to-r from-blue-600 to-orange-500'
+                onClick={() => navigate(ROUTES.register)}
               >
-                Login
+                Sign Up
               </Button>
             </div>
           )}
-          {/* This div will be seen by only realtors and won't be shown if theey aren't authneticateed*/}
-          {user?.account_type === 'realtor' ? (
-            <div className=' hidden lg:flex items-center gap-2'>
+
+          {user?.account_type === 'realtor' && (
+            <div className='hidden lg:flex items-center gap-2'>
               <Button
                 onClick={() => navigate(ROUTES.addNewListing)}
-                color='deep-orange'
+                className='rounded-full bg-gradient-to-r from-blue-600 to-orange-500'
+                size='sm'
               >
                 Add new listing
               </Button>
@@ -138,29 +135,30 @@ const Nav = () => {
                   <Button
                     variant='text'
                     color='blue-gray'
-                    className='flex items-center rounded-full p-0'
+                    className='flex items-center gap-1 rounded-full py-0.5 pr-2 pl-0.5 lg:ml-auto'
                   >
                     <Avatar
                       variant='circular'
-                      size='md'
-                      alt='tania andrew'
-                      withBorder={true}
-                      color='blue-gray'
-                      className=' p-0.5'
+                      size='sm'
+                      alt='user'
+                      className='border border-orange-500 p-0.5'
                       src='https://docs.material-tailwind.com/img/face-2.jpg'
                     />
+                    <Typography className='text-sm font-normal'>
+                      {user?.first_name}
+                    </Typography>
                   </Button>
                 </MenuHandler>
-                <MenuList className='p-1 hidden lg:block'>
+                <MenuList className='p-1'>
                   {profileMenuItems.map(({ label, click }, key) => {
                     const isLastItem = key === profileMenuItems.length - 1;
                     return (
                       <MenuItem
                         key={label}
                         onClick={click}
-                        className={`flex items-center gap-2 rounded  ${
+                        className={`flex items-center gap-2 rounded ${
                           isLastItem
-                            ? 'hover:bg-red-500/10 focus:bg-red-500/10 active:bg-red-500/10 '
+                            ? 'hover:bg-red-500/10 focus:bg-red-500/10 active:bg-red-500/10'
                             : ''
                         }`}
                       >
@@ -178,7 +176,8 @@ const Nav = () => {
                 </MenuList>
               </Menu>
             </div>
-          ) : null}
+          )}
+
           <IconButton
             variant='text'
             className='ml-auto h-6 w-6 text-inherit hover:bg-transparent focus:bg-transparent active:bg-transparent lg:hidden'
@@ -219,83 +218,52 @@ const Nav = () => {
         </div>
       </div>
       <Collapse open={openNav}>
-        {user?.auth?.token ? null : <div>{navList}</div>}
-        {user?.auth?.token ? null : (
-          <div className=' gap-2 flex'>
+        {navList}
+        {!user?.auth?.token && (
+          <div className='flex flex-col gap-2 mt-2'>
             <Button
-              color='deep-orange'
+              fullWidth
+              variant='text'
+              color='blue-gray'
+              className='flex items-center gap-2'
+              onClick={() => navigate(ROUTES.login)}
+            >
+              Log In
+            </Button>
+            <Button
+              fullWidth
+              className='bg-gradient-to-r from-blue-600 to-orange-500'
               onClick={() => navigate(ROUTES.register)}
             >
-              Register
-            </Button>
-            <Button onClick={() => navigate(ROUTES.login)} color='deep-orange'>
-              Login
+              Sign Up
             </Button>
           </div>
         )}
-        {user?.account_type === 'realtor' ? (
-          <div className='flex items-center gap-2'>
+        {user?.account_type === 'realtor' && (
+          <div className='flex flex-col gap-2 mt-2'>
             <Button
+              fullWidth
+              className='bg-gradient-to-r from-blue-600 to-orange-500'
               onClick={() => navigate(ROUTES.addNewListing)}
-              color='deep-orange'
             >
               Add new listing
             </Button>
-
-            <Menu
-              open={openProfile}
-              handler={setOpenProfile}
-              placement='bottom-end'
-            >
-              <MenuHandler>
-                <Button
-                  variant='text'
-                  color='blue-gray'
-                  className='flex items-center rounded-full p-0'
-                >
-                  <Avatar
-                    variant='circular'
-                    size='md'
-                    alt='tania andrew'
-                    withBorder={true}
-                    color='blue-gray'
-                    className=' p-0.5'
-                    src='https://docs.material-tailwind.com/img/face-2.jpg'
-                  />
-                </Button>
-              </MenuHandler>
-              <MenuList className='p-1 lg:hidden'>
-                {profileMenuItems.map(({ label, click }, key) => {
-                  const isLastItem = key === profileMenuItems.length - 1;
-                  return (
-                    <MenuItem
-                      key={label}
-                      onClick={click}
-                      className={`flex items-center gap-2 rounded  ${
-                        isLastItem
-                          ? 'hover:bg-red-500/10 focus:bg-red-500/10 active:bg-red-500/10 '
-                          : ''
-                      }`}
-                    >
-                      {/* {React.createElement(icon, {
-                      className: `h-4 w-4 ${isLastItem ? 'text-red-500' : ''}`,
-                      strokeWidth: 2,
-                    })} */}
-                      <Typography
-                        as='span'
-                        variant='small'
-                        className='font-normal'
-                        color={isLastItem ? 'red' : 'inherit'}
-                      >
-                        {label}
-                      </Typography>
-                    </MenuItem>
-                  );
-                })}
-              </MenuList>
-            </Menu>
+            {profileMenuItems.map(({ label, click }, key) => (
+              <Button
+                key={key}
+                fullWidth
+                variant='text'
+                color={
+                  key === profileMenuItems.length - 1 ? 'red' : 'blue-gray'
+                }
+                className='flex items-center gap-2 justify-start'
+                onClick={click}
+              >
+                {label}
+              </Button>
+            ))}
           </div>
-        ) : null}
+        )}
       </Collapse>
     </Navbar>
   );
