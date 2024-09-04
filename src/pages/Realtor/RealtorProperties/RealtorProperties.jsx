@@ -73,7 +73,7 @@ const RealtorProperties = () => {
             value={search}
           />
         </div>
-        <div className='w-[30%] flex items-center gap-4'>
+        {/* <div className='w-[30%] flex items-center gap-4'>
           <Typography>Filter by</Typography>
           <div className='flex gap-2'>
             <Popover placement='bottom'>
@@ -138,22 +138,8 @@ const RealtorProperties = () => {
             </Popover>
           </div>
 
-          {/* <Select
-            {...register('filter')}
-            size='lg'
-            label='Country'
-            name='country'
-            onChange={(filter) => setFilter(filter)}
-            value={filter}
-          >
-            {filterList &&
-              filterList.map((item) => (
-                <Option value={item.value} key={item.name} sx={{ py: '8px' }}>
-                  {item.name}
-                </Option>
-              ))}
-          </Select> */}
-        </div>
+        
+        </div> */}
       </div>
 
       <Card className=''>
