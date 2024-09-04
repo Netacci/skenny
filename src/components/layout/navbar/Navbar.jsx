@@ -150,8 +150,8 @@ const Nav = () => {
                   </Button>
                 </MenuHandler>
                 <MenuList className='p-1'>
-                  {profileMenuItems.map(({ label, click }, key) => {
-                    const isLastItem = key === profileMenuItems.length - 1;
+                  {profileMenuItems?.map(({ label, click }, key) => {
+                    const isLastItem = key === profileMenuItems?.length - 1;
                     return (
                       <MenuItem
                         key={label}
@@ -248,13 +248,13 @@ const Nav = () => {
             >
               Add new listing
             </Button>
-            {profileMenuItems.map(({ label, click }, key) => (
+            {profileMenuItems?.map(({ label, click }, key) => (
               <Button
                 key={key}
                 fullWidth
                 variant='text'
                 color={
-                  key === profileMenuItems.length - 1 ? 'red' : 'blue-gray'
+                  key === profileMenuItems?.length - 1 ? 'red' : 'blue-gray'
                 }
                 className='flex items-center gap-2 justify-start'
                 onClick={click}

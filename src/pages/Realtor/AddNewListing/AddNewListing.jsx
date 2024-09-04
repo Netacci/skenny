@@ -157,8 +157,8 @@ const AddNewListing = () => {
       singleFormData.append('feature_image', imageFile);
     }
 
-    if (imageFiles && imageFiles.length > 0) {
-      for (let i = 0; i < imageFiles.length; i++) {
+    if (imageFiles && imageFiles?.length > 0) {
+      for (let i = 0; i < imageFiles?.length; i++) {
         multipleFormData.append('property_images[]', imageFiles[i]);
       }
     }
@@ -510,7 +510,7 @@ const AddNewListing = () => {
               {propertyBeingEdited ? null : ( // Disable editing multiple images till I figure out how to delete the images from cloudinary when user clicks the close icon // </div> //   </div> //     </Button> //       )} //         'Update Photo' //       ) : ( //         <Spinner sx={{ color: '#7148E5' }} /> //       {isPhotoLoading ? ( //     <Button className='cursor-pointer '> //     /> //       className='absolute top-0 left-0 opacity-0 w-full h-full z-1 bg-[#494748]  cursor-pointer' //       size='2000000' //       onChange={handleFileChange} //       name='personalImg' //       accept='.jpg, .jpeg, .png' //       type='file' //     <input //   <div className='relative cursor-pointer'> //   </div> //     )} //       ) //         </div> //           /> //             onClick={() => handleRemoveImage(index)} //             fontWeight={700} //             fontSize={24} //             className=' cursor-pointer text-red-500 z-10' //             icon='ic:outline-close' //           <Icon //           /> //             className='w-[156px] h-[56px] object-cover  rounded-lg' //             alt='Preview' //             src={preview} //           <img //         <div key={index} className='flex items-center'> //       (preview, index) => ( //     {propertyBeingEdited?.property_images?.map( //   <div className='w-full  h-[156px] border-2 border-dashed border-[#B5BDC9] flex items-center flex-wrap justify-center   '> // <div className='mr-4 w-full flex items-center gap-4 '>
                 <div>
                   <div className='relative cursor-pointer'>
-                    {imagePreviews.length === 0 ? null : (
+                    {imagePreviews?.length === 0 ? null : (
                       <div className='w-full  h-[156px] border-2 border-dashed border-[#B5BDC9] flex items-center flex-wrap justify-center   '>
                         {imagePreviews.map((preview, index) => (
                           <div key={index} className='flex items-center'>
@@ -530,7 +530,7 @@ const AddNewListing = () => {
                         ))}
                       </div>
                     )}
-                    {imagePreviews.length > 0 ? (
+                    {imagePreviews?.length > 0 ? (
                       <div className='relative cursor-pointer'>
                         <input
                           type='file'
@@ -538,13 +538,13 @@ const AddNewListing = () => {
                           onChange={handleImageChange}
                           size='2000000'
                           className='absolute top-0 left-0 opacity-0 w-full h-full z-1 bg-[#494748]  cursor-pointer'
-                          disabled={imagePreviews.length >= 4}
+                          disabled={imagePreviews?.length >= 4}
                           multiple
                           name='property_images[]'
                         />
                         <Button
                           className='cursor-pointer mt-4 '
-                          disabled={imagePreviews.length >= 4}
+                          disabled={imagePreviews?.length >= 4}
                         >
                           {isPhotoLoading ? (
                             <Spinner sx={{ color: '#7148E5' }} />

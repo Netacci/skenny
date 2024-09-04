@@ -24,7 +24,7 @@ const SingleProperty = ({ property }) => {
             alt='Property feature image'
             className='w-full h-64 object-cover rounded-lg mb-4'
           />
-          {property?.property_images.length > 0 ? (
+          {property?.property_images?.length > 0 ? (
             <div className='mt-4 py-4   '>
               {' '}
               <Swiper

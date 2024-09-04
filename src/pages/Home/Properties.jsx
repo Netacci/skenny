@@ -33,7 +33,7 @@ const Properties = ({ allProperties, loading, allMetadata, page, setPage }) => {
         <div className='flex flex-col items-center justify-center '>
           <Spinner />
         </div>
-      ) : allProperties.length === 0 ? (
+      ) : allProperties?.length === 0 ? (
         <Typography className='text-center '>No properties found</Typography>
       ) : (
         <div className='flex flex-wrap gap-4 justify-center lg:justify-start'>
