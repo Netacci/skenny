@@ -18,6 +18,7 @@ import { ROUTES } from '../../../utils/routes';
 const Nav = () => {
   const [openNav, setOpenNav] = useState(false);
   const [openProfile, setOpenProfile] = useState(false);
+  const [openMobileProfile, setOpenMobileProfile] = useState(false);
   const { user } = useSelector((state) => state.auth);
 
   // const path = useRouter();
@@ -188,7 +189,7 @@ const Nav = () => {
               <svg
                 xmlns='http://www.w3.org/2000/svg'
                 fill='none'
-                className='h-6 w-6'
+                className='h-6 w-6 text-gray-900'
                 viewBox='0 0 24 24'
                 stroke='currentColor'
                 strokeWidth={2}
@@ -202,7 +203,7 @@ const Nav = () => {
             ) : (
               <svg
                 xmlns='http://www.w3.org/2000/svg'
-                className='h-6 w-6'
+                className='h-6 w-6 text-gray-900'
                 fill='none'
                 stroke='currentColor'
                 strokeWidth={2}
@@ -248,7 +249,7 @@ const Nav = () => {
             >
               Add new listing
             </Button>
-            {profileMenuItems?.map(({ label, click }, key) => (
+            {/* {profileMenuItems?.map(({ label, click }, key) => (
               <Button
                 key={key}
                 fullWidth
@@ -261,7 +262,56 @@ const Nav = () => {
               >
                 {label}
               </Button>
-            ))}
+            ))} */}
+            <Menu
+              open={openMobileProfile}
+              handler={setOpenMobileProfile}
+              placement='bottom-end'
+            >
+              <MenuHandler>
+                <Button
+                  variant='text'
+                  color='blue-gray'
+                  className='flex items-center gap-1 rounded-full py-0.5 pr-2 pl-0.5 lg:ml-auto'
+                >
+                  <Avatar
+                    variant='circular'
+                    size='sm'
+                    alt='user'
+                    className='border border-orange-500 p-0.5'
+                    src='https://docs.material-tailwind.com/img/face-2.jpg'
+                  />
+                  <Typography className='text-sm font-normal'>
+                    {user?.first_name}
+                  </Typography>
+                </Button>
+              </MenuHandler>
+              <MenuList className='p-1 !left-5 '>
+                {profileMenuItems?.map(({ label, click }, key) => {
+                  const isLastItem = key === profileMenuItems?.length - 1;
+                  return (
+                    <MenuItem
+                      key={label}
+                      onClick={click}
+                      className={`flex items-center gap-2 rounded ${
+                        isLastItem
+                          ? 'hover:bg-red-500/10 focus:bg-red-500/10 active:bg-red-500/10'
+                          : ''
+                      }`}
+                    >
+                      <Typography
+                        as='span'
+                        variant='small'
+                        className='font-normal'
+                        color={isLastItem ? 'red' : 'inherit'}
+                      >
+                        {label}
+                      </Typography>
+                    </MenuItem>
+                  );
+                })}
+              </MenuList>
+            </Menu>
           </div>
         )}
       </Collapse>
