@@ -37,7 +37,7 @@ const Properties = ({ allProperties, loading, allMetadata, page, setPage }) => {
         <Typography className='text-center '>No properties found</Typography>
       ) : (
         <div className='flex flex-wrap gap-4 justify-center lg:justify-start'>
-          {allProperties.map((property) => (
+          {allProperties?.map((property) => (
             <PropertyCard
               key={property.id}
               property={property}
