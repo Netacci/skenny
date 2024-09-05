@@ -1,5 +1,5 @@
 /* eslint-disable react/prop-types */
-import { Typography, Button } from '@material-tailwind/react';
+import { Button } from '@material-tailwind/react';
 import { Icon } from '@iconify/react';
 import { useNavigate } from 'react-router-dom';
 

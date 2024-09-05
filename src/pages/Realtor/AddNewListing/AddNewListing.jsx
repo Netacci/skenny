@@ -2,8 +2,6 @@ import { useNavigate } from 'react-router-dom';
 import Layout from '../../../components/layout/Layout';
 import {
   Button,
-  Card,
-  Checkbox,
   Typography,
   Input,
   Select,
@@ -32,7 +30,7 @@ import { ROUTES } from '../../../utils/routes';
 const AddNewListing = () => {
   const navigate = useNavigate();
   const { propertyBeingEdited } = useSelector((state) => state.properties);
-  console.log(propertyBeingEdited);
+
   const [country, setCountry] = useState(
     propertyBeingEdited?.country || 'Nigeria'
   );
@@ -148,7 +146,7 @@ const AddNewListing = () => {
     );
     setImageFiles((prevFiles) => prevFiles.filter((_, i) => i !== index));
   };
-  console.log(propertyBeingEdited);
+
   const handleCreateProperty = async (data) => {
     setLoading(true);
     const singleFormData = new FormData();
@@ -234,7 +232,9 @@ const AddNewListing = () => {
           });
       }
     } catch (error) {
-      console.error('Error uploading images:', error);
+      showErrorMessage(
+        error?.response?.data?.message || 'Error uploading images'
+      );
     }
   };
   const handleClearFeatureImage = () => {

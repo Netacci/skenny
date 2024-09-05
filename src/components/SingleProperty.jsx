@@ -1,6 +1,6 @@
 /* eslint-disable react/prop-types */
 import { Icon } from '@iconify/react';
-import { Card, Typography } from '@material-tailwind/react';
+import { Typography } from '@material-tailwind/react';
 import { Swiper, SwiperSlide } from 'swiper/react';
 // import required modules
 import { Pagination, Navigation } from 'swiper/modules';

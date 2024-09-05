@@ -59,7 +59,7 @@ export const getSingleRealtorProperty = createAsyncThunk(
   async (id, thunkAPI) => {
     try {
       const response = await userRequest.get(`properties/${id}`);
-      console.log(response);
+
       return response.data;
     } catch (error) {
       return thunkAPI.rejectWithValue(error);
@@ -71,7 +71,7 @@ export const editRealtorProperty = createAsyncThunk(
   async ({ data, id }, thunkAPI) => {
     try {
       const response = await userRequest.put(`properties/${id}`, data);
-      console.log(response);
+
       return response.data;
     } catch (error) {
       return thunkAPI.rejectWithValue(error);
@@ -83,7 +83,7 @@ export const deleteRealtorProperty = createAsyncThunk(
   async (id, thunkAPI) => {
     try {
       const response = await userRequest.delete(`properties/${id}`);
-      console.log(response);
+
       return response.data;
     } catch (error) {
       return thunkAPI.rejectWithValue(error);
@@ -93,10 +93,9 @@ export const deleteRealtorProperty = createAsyncThunk(
 export const uploadPropertyImage = createAsyncThunk(
   'update/propertyImage',
   async (data, thunkAPI) => {
-    console.log(data);
     try {
       const response = await userFileRequest.post('properties/upload', data);
-      console.log(response);
+
       return response.data;
     } catch (error) {
       return thunkAPI.rejectWithValue(error);
@@ -106,10 +105,9 @@ export const uploadPropertyImage = createAsyncThunk(
 export const uploadPropertyImages = createAsyncThunk(
   'update/propertyImage',
   async (data, thunkAPI) => {
-    console.log(data);
     try {
       const response = await userFileRequest.post('properties/uploads', data);
-      console.log(response);
+
       return response.data;
     } catch (error) {
       return thunkAPI.rejectWithValue(error);
@@ -121,7 +119,6 @@ export const addProperty = createAsyncThunk(
   async (data, thunkAPI) => {
     try {
       const response = await userRequest.post('properties/add', data);
-      console.log(response);
       return response.data;
     } catch (error) {
       return thunkAPI.rejectWithValue(error);
@@ -135,7 +132,7 @@ export const getAllProperties = createAsyncThunk(
       const response = await publicRequest.get(
         `users/properties?q=${search}&page=${page}&limit=${limit}`
       );
-      console.log(response);
+
       if (state) {
         const response = await publicRequest.get(
           `users/properties?q=${search}&page=${page}&limit=${limit}&state=${state}`
@@ -172,7 +169,7 @@ export const getSingleProperty = createAsyncThunk(
   async (id, thunkAPI) => {
     try {
       const response = await userRequest.get(`users/properties/${id}`);
-      console.log(response);
+
       return response.data;
     } catch (error) {
       return thunkAPI.rejectWithValue(error);

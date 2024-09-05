@@ -38,7 +38,6 @@ const EditProfileForm = ({ setEditProfile, user }) => {
     },
   });
   const handleEditProfile = (data) => {
-    console.log(data);
     const payload = {
       first_name: data.firstName,
       last_name: data.lastName,
@@ -48,7 +47,7 @@ const EditProfileForm = ({ setEditProfile, user }) => {
       country,
     };
     setLoading(true);
-    console.log(payload);
+
     dispatch(editProfile(payload))
       .unwrap()
       .then(() => {
@@ -228,7 +227,6 @@ const NormalRow = ({ setEditProfile, user }) => {
 const RealtorProfile = () => {
   const [editProfile, setEditProfile] = useState(false);
   const { user } = useSelector((state) => state.auth);
-  console.log(user);
 
   return (
     <Layout>

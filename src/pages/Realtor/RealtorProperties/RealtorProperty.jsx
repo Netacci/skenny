@@ -38,7 +38,7 @@ const RealtorProperty = () => {
   const [isDeleting, setIsDeleting] = useState(false);
 
   const [openDeleteProperty, setDeleteProperty] = useState(false);
-  console.log(property);
+
   const handleEditRedirect = () => {
     dispatch(editProperty(property));
     navigate(ROUTES.addNewListing);

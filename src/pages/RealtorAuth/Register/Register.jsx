@@ -54,7 +54,6 @@ const Register = () => {
         setIsRegistered(true);
       })
       .catch((err) => {
-        console.log(err);
         showErrorMessage(err?.response?.data?.message || 'Registration Failed');
         setLoading(false);
       });

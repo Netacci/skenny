@@ -42,7 +42,7 @@ const Settings = () => {
       oldPassword: data.oldPassword,
       newPassword: data.newPassword,
     };
-    console.log(submitData);
+
     setLoading(true);
     dispatch(changePassword(submitData))
       .unwrap()

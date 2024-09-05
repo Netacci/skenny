@@ -2,19 +2,8 @@ import { useEffect, useState } from 'react';
 import Layout from '../../../components/layout/Layout';
 import { useDispatch, useSelector } from 'react-redux';
 import { getRealtorProperties } from '../../../redux/realtor/propertiesSlice';
-import {
-  Card,
-  Input,
-  Spinner,
-  Typography,
-  Popover,
-  PopoverHandler,
-  PopoverContent,
-  Checkbox,
-} from '@material-tailwind/react';
+import { Card, Input, Spinner } from '@material-tailwind/react';
 import Properties from './components/Properties';
-import { Icon } from '@iconify/react';
-import { states } from '../../../utils/states';
 
 const RealtorProperties = () => {
   const dispatch = useDispatch();
@@ -44,17 +33,17 @@ const RealtorProperties = () => {
     setSearch(e.target.value);
   };
 
-  const propertyTypeList = [
-    'House',
-    'Apartment',
-    'TownHouse',
-    'PentHouse',
-    'Bungalow',
-    'Duplex',
-    'Flat',
-    'Land',
-    'Office',
-  ];
+  // const propertyTypeList = [
+  //   'House',
+  //   'Apartment',
+  //   'TownHouse',
+  //   'PentHouse',
+  //   'Bungalow',
+  //   'Duplex',
+  //   'Flat',
+  //   'Land',
+  //   'Office',
+  // ];
   return (
     <Layout>
       <div className='flex justify-between mt-6 px-4 lg:px-14'>

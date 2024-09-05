@@ -19,7 +19,7 @@ import { Toaster } from 'react-hot-toast';
 
 const ResetPassword = () => {
   const { token } = useParams();
-  console.log(token);
+
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const [loading, setLoading] = useState(false);

@@ -40,7 +40,6 @@ export const login = createAsyncThunk('auth/login', async (data, thunkAPI) => {
 
     return response.data.data;
   } catch (error) {
-    console.log(error);
     return thunkAPI.rejectWithValue(error);
   }
 });
@@ -94,7 +93,7 @@ export const editProfile = createAsyncThunk(
   async (data, thunkAPI) => {
     try {
       const response = await userRequest.put('auth/edit-profile', data);
-      console.log(response);
+
       localStorage.setItem('realtorInfo', JSON.stringify(response.data.data));
       return response.data.data;
     } catch (error) {

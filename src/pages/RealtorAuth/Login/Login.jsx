@@ -45,7 +45,6 @@ const Login = () => {
         }, 500);
       })
       .catch((err) => {
-        console.log(err);
         setLoading(false);
 
         showErrorMessage(
