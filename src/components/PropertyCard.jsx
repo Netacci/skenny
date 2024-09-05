@@ -29,13 +29,16 @@ const PropertyCard = ({ property, link, realtor }) => {
         <div className='font-bold text-xl mb-2'>{property_name}</div>
         <p className='text-gray-700 text-base mb-2'>{location}</p>
         <div className='flex items-center mb-2'>
-          <Icon
+          {/* <Icon
             icon='clarity:dollar-line'
             className='h-5 w-5 text-green-500 mr-1'
-          />
+          /> */}
+          <Icon icon='mdi:naira' className='h-5 w-5 text-green-500 mr-1' />
 
           <span className='font-semibold text-lg'>
-            {property_details?.property_price || 'Available on request'}
+            {Intl.NumberFormat('en-US').format(
+              property_details?.property_price
+            ) || 'Available on request'}
           </span>
         </div>
         <div className='flex justify-between items-center text-sm text-gray-600 gap-4'>

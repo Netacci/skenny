@@ -28,33 +28,35 @@ const SingleProperty = ({ property }) => {
             <div className='mt-4 py-4   '>
               {' '}
               <Swiper
-                centeredSlides={true}
-                slidesPerView={'3'}
+                // centeredSlides={true}
+                slidesPerView={'1'}
                 spaceBetween={30}
                 navigation={true}
                 pagination={{
                   clickable: true,
                 }}
                 modules={[Pagination, Navigation]}
-                className='object-cover object-fit mySwiper '
+                className='mb-6'
               >
                 {property?.property_images?.map((image, index) => (
-                  <SwiperSlide
-                    key={`${index}_${image}`}
-                    className='bg-center bg-cover '
-                  >
-                    <Card className=' '>
-                      <img
-                        className='block  '
-                        src={image}
-                        alt='property images'
-                      />
-                    </Card>
+                  <SwiperSlide key={`${index}_${image}`}>
+                    {/* <img
+                      src={image}
+                      alt={`Property ${index + 1}`}
+                      className='w-full h-64 object-cover rounded-lg'
+                    /> */}
+                    <ModalImage
+                      small={image}
+                      large={image}
+                      alt={`Property ${index + 1}`}
+                      className='w-full h-64 object-cover rounded-lg'
+                    />
                   </SwiperSlide>
                 ))}
               </Swiper>
             </div>
           ) : null}
+
           <div className='bg-white rounded-lg shadow-md p-6 mb-6'>
             <h2 className='text-xl font-semibold mb-2'>Description</h2>
             <p>{property?.property_description}</p>
@@ -98,8 +100,13 @@ const SingleProperty = ({ property }) => {
           <div className='bg-white rounded-lg shadow-md p-6 mb-6'>
             <h2 className='text-xl font-semibold mb-2'>Price</h2>
             <div className='text-3xl font-bold text-blue-600 flex items-center'>
-              <Icon icon='clarity:dollar-line' />
-              <span>{property?.property_details?.property_price || 0.0}</span>
+              {/* <Icon icon='clarity:dollar-line' /> */}
+              <Icon icon='mdi:naira' />
+              <span>
+                {Intl.NumberFormat('en-US').format(
+                  property?.property_details?.property_price || 0
+                )}
+              </span>
             </div>
           </div>
           <div className='bg-white rounded-lg shadow-md p-6 mb-6'>

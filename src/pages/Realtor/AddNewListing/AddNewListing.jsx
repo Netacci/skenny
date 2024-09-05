@@ -257,28 +257,261 @@ const AddNewListing = () => {
   return (
     <>
       <Layout>
-        <Card
-          color='transparent'
-          shadow={false}
-          className='w-full lg:w-[50%] max-w-md p-8 lg:p-0 mx-auto  my-4'
-        >
-          <Typography variant='h4' color='blue-gray'>
-            Add new property
-          </Typography>
-
+        <div className='container mx-auto px-4 py-8'>
+          <h1 className='text-3xl font-bold mb-6'>
+            {propertyBeingEdited ? 'Edit Property' : 'Add New Property'}
+          </h1>
           <form
-            className='mt-4 mb-2 w-80 max-w-screen-lg sm:w-96'
             onSubmit={handleSubmit(handleCreateProperty)}
+            className='space-y-6'
           >
-            <div className='mb-1 flex flex-col gap-6'>
-              {/* <Input
-                size='lg'
-                className=' !border-t-blue-gray-200 focus:!border-t-gray-900'
-                label='Add feature image'
-                type='file'
-                accept='.jpg, .jpeg, .png'
-                multiple
-              /> */}
+            <div className='grid grid-cols-1 md:grid-cols-2 gap-6'>
+              <div>
+                <label
+                  htmlFor='propertyName'
+                  className='block text-sm font-medium text-gray-700'
+                >
+                  Property Name
+                </label>
+
+                <Input
+                  size='lg'
+                  className='mt-1 block w-full rounded-md   !border-t-indigo-300 '
+                  name='propertyName'
+                  type='text'
+                  {...register('propertyName')}
+                />
+              </div>
+
+              <div>
+                <label
+                  htmlFor='description'
+                  className='block text-sm font-medium text-gray-700'
+                >
+                  Address
+                </label>
+                <Input
+                  size='lg'
+                  className='mt-1 block w-full rounded-md   !border-t-indigo-300 '
+                  type='text'
+                  name='address'
+                  {...register('address')}
+                />
+              </div>
+              <div>
+                <label
+                  htmlFor='description'
+                  className='block text-sm font-medium text-gray-700'
+                >
+                  Property Description
+                </label>
+
+                <Textarea
+                  rows='3'
+                  size='lg'
+                  className='mt-1 block w-full rounded-md   !border-t-indigo-300 '
+                  name='propertyDescription'
+                  {...register('propertyDescription')}
+                />
+              </div>
+              <div>
+                <label
+                  htmlFor='description'
+                  className='block text-sm font-medium text-gray-700'
+                >
+                  City
+                </label>
+                <Input
+                  size='lg'
+                  className='mt-1 block w-full rounded-md   !border-t-indigo-300 '
+                  type='text'
+                  name='city'
+                  {...register('city')}
+                />
+              </div>
+              <div>
+                <label
+                  htmlFor='description'
+                  className='block text-sm font-medium text-gray-700'
+                >
+                  Country
+                </label>
+                <Select
+                  {...register('country')}
+                  size='lg'
+                  name='country'
+                  onChange={(country) => setCountry(country)}
+                  value={country}
+                  className='mt-1 block w-full rounded-md   !border-t-indigo-300 '
+                >
+                  {countries &&
+                    countries.map((item) => (
+                      <Option
+                        value={item.name}
+                        key={item.name}
+                        sx={{ py: '8px' }}
+                      >
+                        {item.name}
+                      </Option>
+                    ))}
+                </Select>
+              </div>
+              <div>
+                <label
+                  htmlFor='description'
+                  className='block text-sm font-medium text-gray-700'
+                >
+                  State
+                </label>
+
+                {country === 'Nigeria' ? (
+                  <Select
+                    name='state'
+                    {...register('state')}
+                    onChange={(state) => setState(state)}
+                    value={state}
+                    className='mt-1 block w-full rounded-md   !border-t-indigo-300 '
+                  >
+                    {states.map((item) => (
+                      <Option value={item} key={item} sx={{ py: '8px' }}>
+                        {item}
+                      </Option>
+                    ))}
+                  </Select>
+                ) : (
+                  <Input
+                    size='lg'
+                    className='mt-1 block w-full rounded-md   !border-t-indigo-300 '
+                    type='text'
+                    name='state'
+                    {...register('state')}
+                  />
+                )}
+              </div>
+
+              <div>
+                <label
+                  htmlFor='description'
+                  className='block text-sm font-medium text-gray-700'
+                >
+                  Type
+                </label>
+                <Select
+                  name='propertyType'
+                  {...register('propertyType')}
+                  onChange={(type) => setPropertyType(type)}
+                  value={propertyType}
+                  className='mt-1 block w-full rounded-md   !border-t-indigo-300 '
+                >
+                  {propertyTypeList.map((item) => (
+                    <Option value={item} key={item} sx={{ py: '8px' }}>
+                      {item}
+                    </Option>
+                  ))}
+                </Select>
+              </div>
+              <div>
+                <label
+                  htmlFor='description'
+                  className='block text-sm font-medium text-gray-700'
+                >
+                  No of rooms
+                </label>
+                <Input
+                  size='lg'
+                  className='mt-1 block w-full rounded-md   !border-t-indigo-300 '
+                  type='text'
+                  name='address'
+                  placeholder='1, 2, 3'
+                  {...register('propertyRoom')}
+                />
+              </div>
+              <div>
+                <label
+                  htmlFor='description'
+                  className='block text-sm font-medium text-gray-700'
+                >
+                  No of toilet
+                </label>
+                <Input
+                  size='lg'
+                  className='mt-1 block w-full rounded-md   !border-t-indigo-300 '
+                  type='text'
+                  name='address'
+                  placeholder='1, 2, 3'
+                  {...register('propertyToilet')}
+                />
+              </div>
+              <div>
+                <label
+                  htmlFor='description'
+                  className='block text-sm font-medium text-gray-700'
+                >
+                  No of bathroom
+                </label>
+                <Input
+                  size='lg'
+                  className='mt-1 block w-full rounded-md   !border-t-indigo-300 '
+                  type='text'
+                  name='address'
+                  placeholder='1, 2, 3'
+                  {...register('propertyBath')}
+                />
+              </div>
+              <div>
+                <label
+                  htmlFor='description'
+                  className='block text-sm font-medium text-gray-700'
+                >
+                  Size of property
+                </label>
+                <Input
+                  size='lg'
+                  className='mt-1 block w-full rounded-md   !border-t-indigo-300 '
+                  type='text'
+                  name='propertyArea'
+                  placeholder='Square feet'
+                  {...register('propertyArea')}
+                />
+              </div>
+              <div>
+                <label
+                  htmlFor='description'
+                  className='block text-sm font-medium text-gray-700'
+                >
+                  Status of property
+                </label>
+                <Input
+                  size='lg'
+                  className='mt-1 block w-full rounded-md   !border-t-indigo-300 '
+                  type='text'
+                  name='propertyStatus'
+                  placeholder='For rent, for sale'
+                  {...register('propertyStatus')}
+                />
+              </div>
+              <div>
+                <label
+                  htmlFor='description'
+                  className='block text-sm font-medium text-gray-700'
+                >
+                  Price
+                </label>
+                <Input
+                  size='lg'
+                  className='mt-1 block w-full rounded-md   !border-t-indigo-300 '
+                  type='number'
+                  name='propertyPrice'
+                  placeholder='Enter price'
+                  {...register('propertyPrice')}
+                />
+              </div>
+            </div>
+
+            <div>
+              <label className='block text-sm font-medium text-gray-700'>
+                Feature Image
+              </label>
               {propertyBeingEdited ? (
                 <div className='mr-4 w-full flex items-center gap-4 '>
                   <div>
@@ -295,9 +528,8 @@ const AddNewListing = () => {
                       name='feature_image'
                       onChange={handleFileChange}
                       size='2000000'
-                      className='absolute top-0 left-0 opacity-0 w-full h-full z-1 bg-[#494748]  cursor-pointer'
+                      className='absolute top-0 left-0 opacity-0 w-full h-full z-1 bg-[#494748] cursor-pointer'
                     />
-
                     <Button className='cursor-pointer '>
                       {isPhotoLoading ? (
                         <Spinner sx={{ color: '#7148E5' }} />
@@ -314,8 +546,9 @@ const AddNewListing = () => {
                       <img
                         alt='profile'
                         src={imagePreview}
-                        className='w-full  '
+                        className='object-cover h-[100px] w-[100px] '
                       />
+
                       <Icon
                         icon='ic:outline-close'
                         className='absolute top-0 right-0 z-1 cursor-pointer text-red-500'
@@ -332,301 +565,197 @@ const AddNewListing = () => {
                         name='feature_image'
                         onChange={handleFileChange}
                         size='2000000'
-                        className='absolute top-0 left-0 opacity-0 w-full h-full z-1 bg-[#494748]  cursor-pointer'
+                        className='absolute top-0 left-0 opacity-0 w-full h-full z-1 bg-[#494748] cursor-pointer'
                       />
-
-                      <div className='bg-[#F1F2F6] w-full  h-[156px] border-2 border-dashed border-[#B5BDC9] rounded-[8px] mb-4 text-center cursor-pointer pt-[20px] lg:pt-[20px] lg:px-[64px] lg:pb-[0px]'>
+                      <div className='mt-1 flex justify-center px-6 pt-5 pb-6 border-2 border-gray-300 border-dashed rounded-md'>
                         {isPhotoLoading ? (
                           <Spinner sx={{ color: '#7148E5' }} />
                         ) : (
-                          <Icon
-                            icon='ep:upload-filled'
-                            fontSize={48}
-                            className='text-center mx-auto'
-                          />
+                          <div className='space-y-1 text-center'>
+                            <Icon
+                              icon='lucide:upload'
+                              className='mx-auto h-12 w-12 text-gray-400'
+                            />
+                            <div className='flex text-sm text-gray-600'>
+                              <label
+                                htmlFor='additional-images'
+                                className='relative cursor-pointer bg-white rounded-md font-medium text-indigo-600 hover:text-indigo-500 focus-within:outline-none focus-within:ring-2 focus-within:ring-offset-2 focus-within:ring-indigo-500'
+                              >
+                                <span>Upload feature image</span>
+                                <input
+                                  id='additional-images'
+                                  name='additional-images'
+                                  type='file'
+                                  className='sr-only'
+                                  onChange={(e) =>
+                                    handleFileChange(e, 'additional')
+                                  }
+                                  accept='image/png, image/jpeg'
+                                  multiple
+                                />
+                              </label>
+                              <p className='pl-1'>or drag and drop</p>
+                            </div>
+                            <p className='text-xs text-gray-500'>
+                              PNG or JPG up to 5MB each
+                            </p>
+                          </div>
                         )}
-
-                        <div className=' mx-auto mt-[4px]'>
-                          <Typography
-                            sx={{ color: '#1A3A50', fontSize: '14px' }}
-                          >
-                            Upload feature image
-                          </Typography>
-                          <Typography
-                            sx={{ color: '#526581', fontSize: '12px' }}
-                          >
-                            File type: .PNG or JPG
-                          </Typography>
-                        </div>
                       </div>
                     </div>
                   )}
                 </div>
               )}
-              <Input
-                size='lg'
-                className=' !border-t-blue-gray-200 focus:!border-t-gray-900'
-                label='Property Name'
-                name='propertyName'
-                type='text'
-                {...register('propertyName')}
-              />
-              <Textarea
-                size='lg'
-                className=' !border-t-blue-gray-200 focus:!border-t-gray-900'
-                label='Property Description'
-                name='propertyDescription'
-                {...register('propertyDescription')}
-              />
+            </div>
 
-              <Input
-                size='lg'
-                className=' !border-t-blue-gray-200 focus:!border-t-gray-900'
-                type='text'
-                name='address'
-                label='Address'
-                {...register('address')}
-              />
-              <Input
-                size='lg'
-                className=' !border-t-blue-gray-200 focus:!border-t-gray-900'
-                type='text'
-                name='city'
-                label='City'
-                {...register('city')}
-              />
-              <Select
-                {...register('country')}
-                size='lg'
-                label='Country'
-                name='country'
-                onChange={(country) => setCountry(country)}
-                value={country}
-              >
-                {countries &&
-                  countries.map((item) => (
-                    <Option
-                      value={item.name}
-                      key={item.name}
-                      sx={{ py: '8px' }}
-                    >
-                      {item.name}
-                    </Option>
-                  ))}
-              </Select>
-
-              {country === 'Nigeria' ? (
-                <Select
-                  label='State'
-                  name='state'
-                  {...register('state')}
-                  onChange={(state) => setState(state)}
-                  value={state}
-                >
-                  {states.map((item) => (
-                    <Option value={item} key={item} sx={{ py: '8px' }}>
-                      {item}
-                    </Option>
-                  ))}
-                </Select>
-              ) : (
-                <Input
-                  size='lg'
-                  className=' !border-t-blue-gray-200 focus:!border-t-gray-900'
-                  type='text'
-                  name='state'
-                  label='State'
-                  {...register('state')}
-                />
-              )}
-              <Select
-                label='Property Type'
-                name='propertyType'
-                {...register('propertyType')}
-                onChange={(type) => setPropertyType(type)}
-                value={propertyType}
-              >
-                {propertyTypeList.map((item) => (
-                  <Option value={item} key={item} sx={{ py: '8px' }}>
-                    {item}
-                  </Option>
-                ))}
-              </Select>
-              <Input
-                size='lg'
-                className=' !border-t-blue-gray-200 focus:!border-t-gray-900'
-                type='text'
-                name='address'
-                label='No of rooms'
-                placeholder='1, 2, 3'
-                {...register('propertyRoom')}
-              />
-              <Input
-                size='lg'
-                className=' !border-t-blue-gray-200 focus:!border-t-gray-900'
-                type='text'
-                name='address'
-                label='No of toilet'
-                placeholder='1, 2, 3'
-                {...register('propertyToilet')}
-              />
-              <Input
-                size='lg'
-                className=' !border-t-blue-gray-200 focus:!border-t-gray-900'
-                type='text'
-                name='address'
-                label='No of bathroom'
-                placeholder='1, 2, 3'
-                {...register('propertyBath')}
-              />
-              <Input
-                size='lg'
-                className=' !border-t-blue-gray-200 focus:!border-t-gray-900'
-                type='text'
-                name='propertyArea'
-                placeholder='Square feet'
-                label='Size of property'
-                {...register('propertyArea')}
-              />
-              <Input
-                size='lg'
-                className=' !border-t-blue-gray-200 focus:!border-t-gray-900'
-                type='text'
-                name='propertyStatus'
-                placeholder='For rent, for sale'
-                label='Status of property'
-                {...register('propertyStatus')}
-              />
-              {/*TODO Change this to number later */}
-              <Input
-                size='lg'
-                className=' !border-t-blue-gray-200 focus:!border-t-gray-900'
-                type='text'
-                name='propertyPrice'
-                label='Price'
-                placeholder='Enter price'
-                {...register('propertyPrice')}
-              />
-              {propertyBeingEdited ? null : ( // Disable editing multiple images till I figure out how to delete the images from cloudinary when user clicks the close icon // </div> //   </div> //     </Button> //       )} //         'Update Photo' //       ) : ( //         <Spinner sx={{ color: '#7148E5' }} /> //       {isPhotoLoading ? ( //     <Button className='cursor-pointer '> //     /> //       className='absolute top-0 left-0 opacity-0 w-full h-full z-1 bg-[#494748]  cursor-pointer' //       size='2000000' //       onChange={handleFileChange} //       name='personalImg' //       accept='.jpg, .jpeg, .png' //       type='file' //     <input //   <div className='relative cursor-pointer'> //   </div> //     )} //       ) //         </div> //           /> //             onClick={() => handleRemoveImage(index)} //             fontWeight={700} //             fontSize={24} //             className=' cursor-pointer text-red-500 z-10' //             icon='ic:outline-close' //           <Icon //           /> //             className='w-[156px] h-[56px] object-cover  rounded-lg' //             alt='Preview' //             src={preview} //           <img //         <div key={index} className='flex items-center'> //       (preview, index) => ( //     {propertyBeingEdited?.property_images?.map( //   <div className='w-full  h-[156px] border-2 border-dashed border-[#B5BDC9] flex items-center flex-wrap justify-center   '> // <div className='mr-4 w-full flex items-center gap-4 '>
-                <div>
-                  <div className='relative cursor-pointer'>
-                    {imagePreviews?.length === 0 ? null : (
-                      <div className='w-full  h-[156px] border-2 border-dashed border-[#B5BDC9] flex items-center flex-wrap justify-center   '>
-                        {imagePreviews.map((preview, index) => (
-                          <div key={index} className='flex items-center'>
-                            <img
-                              src={preview}
-                              alt='Preview'
-                              className='w-[156px] h-[56px] object-cover  rounded-lg'
-                            />
-                            <Icon
-                              icon='ic:outline-close'
-                              className=' cursor-pointer text-red-500 z-10'
-                              fontSize={24}
-                              fontWeight={700}
-                              onClick={() => handleRemoveImage(index)}
-                            />
-                          </div>
-                        ))}
-                      </div>
-                    )}
-                    {imagePreviews?.length > 0 ? (
-                      <div className='relative cursor-pointer'>
-                        <input
-                          type='file'
-                          accept='.jpg, .jpeg, .png'
-                          onChange={handleImageChange}
-                          size='2000000'
-                          className='absolute top-0 left-0 opacity-0 w-full h-full z-1 bg-[#494748]  cursor-pointer'
-                          disabled={imagePreviews?.length >= 4}
-                          multiple
-                          name='property_images[]'
-                        />
-                        <Button
-                          className='cursor-pointer mt-4 '
-                          disabled={imagePreviews?.length >= 4}
-                        >
-                          {isPhotoLoading ? (
-                            <Spinner sx={{ color: '#7148E5' }} />
-                          ) : (
-                            'Upload'
-                          )}
-                        </Button>
-                        <Typography className='mt-2 text-red-500'>
-                          Maximum 4 images
-                        </Typography>
-                      </div>
-                    ) : (
-                      <div>
-                        <input
-                          type='file'
-                          accept='.jpg, .jpeg, .png'
-                          onChange={handleImageChange}
-                          multiple
-                          size='2000000'
-                          name='property_images[]'
-                          className='absolute top-0 left-0 opacity-0 w-full h-full z-1 bg-[#494748]  cursor-pointer'
-                        />
-
-                        <div className='bg-[#F1F2F6] w-full  h-[156px] border-2 border-dashed border-[#B5BDC9] rounded-[8px] mb-4 text-center cursor-pointer pt-[20px] lg:pt-[20px] lg:px-[64px] lg:pb-[0px]'>
-                          {isPhotoLoading ? (
-                            <Spinner sx={{ color: '#7148E5' }} />
-                          ) : (
-                            <Icon
-                              icon='ep:upload-filled'
-                              fontSize={48}
-                              className='text-center mx-auto'
-                            />
-                          )}
-
-                          <div className=' mx-auto mt-[4px]'>
-                            <Typography
-                              sx={{ color: '#1A3A50', fontSize: '14px' }}
-                            >
-                              Upload Multiple images
-                            </Typography>
-                            <Typography
-                              sx={{ color: '#526581', fontSize: '12px' }}
-                            >
-                              File type: .PNG or JPG
-                            </Typography>
-                          </div>
+            <div>
+              <label className='block text-sm font-medium text-gray-700'>
+                Additional Images
+              </label>
+              {propertyBeingEdited ? null : (
+                <div className='relative cursor-pointer'>
+                  {imagePreviews?.length === 0 ? null : (
+                    <div className='w-full  h-[156px] border-2 border-dashed border-[#B5BDC9] flex items-center flex-wrap justify-center   '>
+                      {imagePreviews.map((preview, index) => (
+                        <div key={index} className='flex items-center'>
+                          <img
+                            src={preview}
+                            alt='Preview'
+                            className='w-[156px] h-[56px] object-cover  rounded-lg'
+                          />
+                          <Icon
+                            icon='ic:outline-close'
+                            className=' cursor-pointer text-red-500 z-10'
+                            fontSize={24}
+                            fontWeight={700}
+                            onClick={() => handleRemoveImage(index)}
+                          />
                         </div>
+                      ))}
+                    </div>
+                  )}
+                  {imagePreviews?.length > 0 ? (
+                    <div className='relative cursor-pointer'>
+                      <input
+                        type='file'
+                        accept='.jpg, .jpeg, .png'
+                        onChange={handleImageChange}
+                        size='2000000'
+                        className='absolute top-0 left-0 opacity-0 w-full h-full z-1 bg-[#494748]  cursor-pointer'
+                        disabled={imagePreviews?.length >= 4}
+                        multiple
+                        name='property_images[]'
+                      />
+                      <Button
+                        className='cursor-pointer mt-4 '
+                        disabled={imagePreviews?.length >= 4}
+                      >
+                        {isPhotoLoading ? (
+                          <Spinner sx={{ color: '#7148E5' }} />
+                        ) : (
+                          'Upload'
+                        )}
+                      </Button>
+                      <Typography className='mt-2 text-red-500'>
+                        Maximum 4 images
+                      </Typography>
+                    </div>
+                  ) : (
+                    <div>
+                      <input
+                        type='file'
+                        accept='.jpg, .jpeg, .png'
+                        onChange={handleImageChange}
+                        multiple
+                        size='2000000'
+                        name='property_images[]'
+                        className='absolute top-0 left-0 opacity-0 w-full h-full z-1 bg-[#494748]  cursor-pointer'
+                      />
+
+                      <div className='mt-1 flex justify-center px-6 pt-5 pb-6 border-2 border-gray-300 border-dashed rounded-md'>
+                        {isPhotoLoading ? (
+                          <Spinner sx={{ color: '#7148E5' }} />
+                        ) : (
+                          <div className='space-y-1 text-center'>
+                            <Icon
+                              icon='lucide:upload'
+                              className='mx-auto h-12 w-12 text-gray-400'
+                            />
+                            <div className='flex text-sm text-gray-600'>
+                              <label
+                                htmlFor='additional-images'
+                                className='relative cursor-pointer bg-white rounded-md font-medium text-indigo-600 hover:text-indigo-500 focus-within:outline-none focus-within:ring-2 focus-within:ring-offset-2 focus-within:ring-indigo-500'
+                              >
+                                <span>Upload files</span>
+                                <input
+                                  id='additional-images'
+                                  name='additional-images'
+                                  type='file'
+                                  className='sr-only'
+                                  onChange={(e) =>
+                                    handleFileChange(e, 'additional')
+                                  }
+                                  accept='image/png, image/jpeg'
+                                  multiple
+                                />
+                              </label>
+                              <p className='pl-1'>or drag and drop</p>
+                            </div>
+                            <p className='text-xs text-gray-500'>
+                              PNG or JPG up to 10MB each
+                            </p>
+                          </div>
+                        )}
                       </div>
-                    )}
-                  </div>
+                    </div>
+                  )}
                 </div>
               )}
+
+              {/* {propertyBeingEdited &&
+                formData.additionalImages &&
+                formData.additionalImages.length > 0 && (
+                  <p className='mt-2 text-sm text-gray-500'>
+                    Current additional images:{' '}
+                    {formData.additionalImages.join(', ')}
+                  </p>
+                )} */}
             </div>
-            <Checkbox
-              label={
-                <Typography
-                  variant='small'
-                  color='gray'
-                  className='flex items-center font-normal'
+
+            {!propertyBeingEdited && (
+              <div className='flex items-center'>
+                <input
+                  id='terms'
+                  name='terms'
+                  type='checkbox'
+                  className='h-4 w-4 text-indigo-600 focus:ring-indigo-500 border-gray-300 rounded'
+                  required
+                />
+                <label
+                  htmlFor='terms'
+                  className='ml-2 block text-sm text-gray-900'
                 >
-                  I agree the
-                  <a
-                    href='#'
-                    className='font-medium transition-colors hover:text-gray-900'
-                  >
-                    &nbsp;Terms and Conditions
-                  </a>
-                </Typography>
-              }
-              containerProps={{ className: '-ml-2.5' }}
-            />
-            <Button className='mt-6' fullWidth type='submit'>
-              {loading ? (
-                <Spinner />
-              ) : propertyBeingEdited ? (
-                'Update Property'
-              ) : (
-                'Add porperty'
-              )}
-            </Button>
+                  I agree to the Terms and Conditions
+                </label>
+              </div>
+            )}
+
+            <div>
+              <Button
+                type='submit'
+                className='w-full flex justify-center py-2 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500'
+              >
+                {loading ? (
+                  <Spinner />
+                ) : propertyBeingEdited ? (
+                  'Update Property'
+                ) : (
+                  'Add porperty'
+                )}
+              </Button>
+            </div>
           </form>
-        </Card>
+        </div>
       </Layout>
     </>
   );
