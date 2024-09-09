@@ -22,7 +22,7 @@ const PropertyCard = ({ property, link, realtor }) => {
     <div className='max-w-sm rounded overflow-hidden shadow-lg hover:shadow-xl transition-shadow duration-300 bg-white'>
       <img
         className='w-full h-48 object-cover'
-        src={feature_image}
+        src={feature_image?.url}
         alt={property_name}
       />
       <div className='px-6 py-4'>

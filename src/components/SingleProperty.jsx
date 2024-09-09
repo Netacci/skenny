@@ -19,8 +19,8 @@ const SingleProperty = ({ property }) => {
       <div className='flex flex-col md:flex-row gap-8'>
         <div className='md:w-2/3'>
           <ModalImage
-            small={property?.feature_image}
-            large={property?.feature_image}
+            small={property?.feature_image?.url}
+            large={property?.feature_image?.url}
             alt='Property feature image'
             className='w-full h-64 object-cover rounded-lg mb-4'
           />
@@ -46,8 +46,8 @@ const SingleProperty = ({ property }) => {
                       className='w-full h-64 object-cover rounded-lg'
                     /> */}
                     <ModalImage
-                      small={image}
-                      large={image}
+                      small={image?.url}
+                      large={image?.url}
                       alt={`Property ${index + 1}`}
                       className='w-full h-64 object-cover rounded-lg'
                     />

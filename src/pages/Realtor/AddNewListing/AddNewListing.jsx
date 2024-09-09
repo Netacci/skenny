@@ -111,7 +111,10 @@ const AddNewListing = () => {
   ];
   const [imagePreview, setImagePreview] = useState(null);
   const [imageFile, setImageFile] = useState(null);
-  const [imagePreviews, setImagePreviews] = useState([]);
+
+  const [imagePreviews, setImagePreviews] = useState(
+    propertyBeingEdited ? [...propertyBeingEdited.property_images] : []
+  );
   const [imageFiles, setImageFiles] = useState([]);
 
   const handleFileChange = (e) => {
@@ -125,63 +128,73 @@ const AddNewListing = () => {
     reader.readAsDataURL(file);
   };
 
-  // const handleImageChange = (e) => {
-  //   const files = Array.from(e.target.files);
-  //   setImageFiles((prevFiles) => [...prevFiles, ...files]);
-
-  //   const newPreviews = files.map((file) => URL.createObjectURL(file));
-  //   setImagePreviews((prevPreviews) => [...prevPreviews, ...newPreviews]);
-  // };
-  const handleImageChange = (e) => {
-    const files = Array.from(e.target.files);
+  const handleImageChange = (event) => {
+    const files = Array.from(event.target.files);
     setImageFiles((prevFiles) => [...prevFiles, ...files]);
-
-    const newPreviews = files.map((file) => URL.createObjectURL(file));
-    setImagePreviews((prevPreviews) => [...prevPreviews, ...newPreviews]);
+    const newPreviews = files.map((file) => ({
+      file,
+      url: URL.createObjectURL(file),
+    }));
+    setImagePreviews((prev) => [...prev, ...newPreviews]);
   };
 
   const handleRemoveImage = (index) => {
-    setImagePreviews((prevPreviews) =>
-      prevPreviews.filter((_, i) => i !== index)
-    );
+    setImagePreviews((prev) => prev.filter((_, i) => i !== index));
     setImageFiles((prevFiles) => prevFiles.filter((_, i) => i !== index));
   };
 
   const handleCreateProperty = async (data) => {
     setLoading(true);
+    let allPublicIds = [];
     const singleFormData = new FormData();
     const multipleFormData = new FormData();
+
+    // Handle feature image
     if (imageFile) {
-      singleFormData.append('feature_image', imageFile);
+      if (imageFile instanceof File) {
+        singleFormData.append('feature_image', imageFile);
+      } else {
+        allPublicIds.push(imageFile.public_id);
+      }
     }
 
-    if (imageFiles && imageFiles?.length > 0) {
-      for (let i = 0; i < imageFiles?.length; i++) {
-        multipleFormData.append('property_images[]', imageFiles[i]);
-      }
+    // Handle property images
+    if (imageFiles && imageFiles.length > 0) {
+      imageFiles.forEach((image, index) => {
+        if (image instanceof File) {
+          multipleFormData.append('property_images[]', imageFiles[index]);
+        } else {
+          allPublicIds.push(image.public_id);
+        }
+      });
     }
 
     try {
       let featureImageUrl;
       let propertyImageUrls = [];
 
-      // Upload feature image
-      if (imageFile) {
+      // Upload new feature image if it's a File
+      if (imageFile instanceof File) {
         const response = await dispatch(
           uploadPropertyImage(singleFormData)
         ).unwrap();
         featureImageUrl = response.feature_image;
+      } else {
+        featureImageUrl = imageFile;
       }
 
-      // Upload property images
-      if (imageFiles && imageFiles.length > 0) {
+      // Upload new property images
+      const newImages = imageFiles.filter((img) => img instanceof File);
+      if (newImages.length > 0) {
         const response = await dispatch(
           uploadPropertyImages(multipleFormData)
         ).unwrap();
         propertyImageUrls = response.property_images;
       }
+      const existingImages = imagePreviews.filter((img) => img.public_id);
+      // Add existing property images
+      propertyImageUrls = [...propertyImageUrls, ...existingImages];
 
-      // Construct submitData object
       const submitData = {
         property_name: data.propertyName,
         property_description: data.propertyDescription,
@@ -198,42 +211,46 @@ const AddNewListing = () => {
           property_status: data.propertyStatus,
           property_price: data.propertyPrice,
         },
-        feature_image: featureImageUrl,
-        property_images: propertyImageUrls,
+
+        feature_image: propertyBeingEdited
+          ? featureImageUrl || propertyBeingEdited?.feature_image
+          : JSON.stringify(featureImageUrl),
+        property_images: propertyBeingEdited
+          ? propertyImageUrls.map((image) => ({
+              url: image.url,
+              public_id: image.public_id,
+            })) || propertyBeingEdited?.property_images
+          : propertyImageUrls.map((image) => ({
+              url: image.url,
+              public_id: image.public_id,
+            })),
+        all_public_ids: allPublicIds,
       };
+
+      if (propertyBeingEdited) {
+        // For editing, include the current feature image and property images public_ids
+        submitData.current_feature_image_id =
+          propertyBeingEdited.feature_image?.public_id;
+        submitData.current_property_image_ids =
+          propertyBeingEdited.property_images.map((img) => img.public_id);
+      }
+
       const id = propertyBeingEdited?.id;
       if (propertyBeingEdited) {
-        dispatch(editRealtorProperty({ data: submitData, id }))
-          .unwrap()
-          .then(() => {
-            setLoading(false);
-            showToastMessage('Property updated successfully');
-            navigate(ROUTES.realtorsProperties);
-          })
-          .catch((err) => {
-            setLoading(false);
-            showErrorMessage(
-              err?.response?.data?.message || 'Failed to update property'
-            );
-          });
+        await dispatch(editRealtorProperty({ data: submitData, id })).unwrap();
+        setLoading(false);
+        showToastMessage('Property updated successfully');
+        navigate(ROUTES.realtorsProperties);
       } else {
-        dispatch(addProperty(submitData))
-          .unwrap()
-          .then(() => {
-            setLoading(false);
-            showToastMessage('Property added successfully');
-            navigate(ROUTES.realtorsProperties);
-          })
-          .catch((err) => {
-            setLoading(false);
-            showErrorMessage(
-              err?.response?.data?.message || 'Failed to add property'
-            );
-          });
+        await dispatch(addProperty(submitData)).unwrap();
+        setLoading(false);
+        showToastMessage('Property added successfully');
+        navigate(ROUTES.realtorsProperties);
       }
     } catch (error) {
+      setLoading(false);
       showErrorMessage(
-        error?.response?.data?.message || 'Error uploading images'
+        error?.response?.data?.message || 'Error processing property'
       );
     }
   };
@@ -241,19 +258,7 @@ const AddNewListing = () => {
     setImageFile(null);
     setImagePreview(null);
   };
-  // useEffect(() => {
-  //   return () => {
-  //     imagePreviews.forEach((url) => URL.revokeObjectURL(url));
-  //   };
-  // }, [propertyBeingEdited]);
-  // const images =
-  //   propertyBeingEdited && imagePreviews.length > 0
-  //     ? imagePreviews
-  //     : propertyBeingEdited?.property_images;
 
-  // console.log(images);
-  // console.log(imagePreviews);
-  // console.log(propertyBeingEdited?.property_images);
   return (
     <>
       <Layout>
@@ -517,7 +522,9 @@ const AddNewListing = () => {
                   <div>
                     <img
                       alt='profile'
-                      src={imagePreview || propertyBeingEdited?.feature_image}
+                      src={
+                        imagePreview || propertyBeingEdited?.feature_image?.url
+                      }
                       className='h-[72px] w-[72px] rounded-full'
                     />
                   </div>
@@ -612,114 +619,104 @@ const AddNewListing = () => {
               <label className='block text-sm font-medium text-gray-700'>
                 Additional Images
               </label>
-              {propertyBeingEdited ? null : (
-                <div className='relative cursor-pointer'>
-                  {imagePreviews?.length === 0 ? null : (
-                    <div className='w-full  h-[156px] border-2 border-dashed border-[#B5BDC9] flex items-center flex-wrap justify-center   '>
-                      {imagePreviews.map((preview, index) => (
-                        <div key={index} className='flex items-center'>
-                          <img
-                            src={preview}
-                            alt='Preview'
-                            className='w-[156px] h-[56px] object-cover  rounded-lg'
-                          />
-                          <Icon
-                            icon='ic:outline-close'
-                            className=' cursor-pointer text-red-500 z-10'
-                            fontSize={24}
-                            fontWeight={700}
-                            onClick={() => handleRemoveImage(index)}
-                          />
-                        </div>
-                      ))}
-                    </div>
-                  )}
-                  {imagePreviews?.length > 0 ? (
-                    <div className='relative cursor-pointer'>
-                      <input
-                        type='file'
-                        accept='.jpg, .jpeg, .png'
-                        onChange={handleImageChange}
-                        size='2000000'
-                        className='absolute top-0 left-0 opacity-0 w-full h-full z-1 bg-[#494748]  cursor-pointer'
-                        disabled={imagePreviews?.length >= 4}
-                        multiple
-                        name='property_images[]'
-                      />
-                      <Button
-                        className='cursor-pointer mt-4 '
-                        disabled={imagePreviews?.length >= 4}
-                      >
-                        {isPhotoLoading ? (
-                          <Spinner sx={{ color: '#7148E5' }} />
-                        ) : (
-                          'Upload'
-                        )}
-                      </Button>
-                      <Typography className='mt-2 text-red-500'>
-                        Maximum 4 images
-                      </Typography>
-                    </div>
-                  ) : (
-                    <div>
-                      <input
-                        type='file'
-                        accept='.jpg, .jpeg, .png'
-                        onChange={handleImageChange}
-                        multiple
-                        size='2000000'
-                        name='property_images[]'
-                        className='absolute top-0 left-0 opacity-0 w-full h-full z-1 bg-[#494748]  cursor-pointer'
-                      />
 
-                      <div className='mt-1 flex justify-center px-6 pt-5 pb-6 border-2 border-gray-300 border-dashed rounded-md'>
-                        {isPhotoLoading ? (
-                          <Spinner sx={{ color: '#7148E5' }} />
-                        ) : (
-                          <div className='space-y-1 text-center'>
-                            <Icon
-                              icon='lucide:upload'
-                              className='mx-auto h-12 w-12 text-gray-400'
-                            />
-                            <div className='flex text-sm text-gray-600'>
-                              <label
-                                htmlFor='additional-images'
-                                className='relative cursor-pointer bg-white rounded-md font-medium text-indigo-600 hover:text-indigo-500 focus-within:outline-none focus-within:ring-2 focus-within:ring-offset-2 focus-within:ring-indigo-500'
-                              >
-                                <span>Upload files</span>
-                                <input
-                                  id='additional-images'
-                                  name='additional-images'
-                                  type='file'
-                                  className='sr-only'
-                                  onChange={(e) =>
-                                    handleFileChange(e, 'additional')
-                                  }
-                                  accept='image/png, image/jpeg'
-                                  multiple
-                                />
-                              </label>
-                              <p className='pl-1'>or drag and drop</p>
-                            </div>
-                            <p className='text-xs text-gray-500'>
-                              PNG or JPG up to 10MB each
-                            </p>
-                          </div>
-                        )}
+              <div className='relative cursor-pointer'>
+                {imagePreviews?.length > 0 && (
+                  <div className='w-full h-[156px] border-2 border-dashed border-[#B5BDC9] flex items-center flex-wrap justify-center'>
+                    {imagePreviews.map((preview, index) => (
+                      <div key={index} className='flex items-center'>
+                        <img
+                          src={preview.url || preview}
+                          alt='Preview'
+                          className='w-[156px] h-[56px] object-cover rounded-lg'
+                        />
+                        <Icon
+                          icon='ic:outline-close'
+                          className='cursor-pointer text-red-500 z-10'
+                          fontSize={24}
+                          fontWeight={700}
+                          onClick={() => handleRemoveImage(index)}
+                        />
                       </div>
-                    </div>
-                  )}
-                </div>
-              )}
+                    ))}
+                  </div>
+                )}
 
-              {/* {propertyBeingEdited &&
-                formData.additionalImages &&
-                formData.additionalImages.length > 0 && (
-                  <p className='mt-2 text-sm text-gray-500'>
-                    Current additional images:{' '}
-                    {formData.additionalImages.join(', ')}
-                  </p>
-                )} */}
+                {imagePreviews?.length > 0 ? (
+                  <div className='relative cursor-pointer'>
+                    <input
+                      type='file'
+                      accept='.jpg, .jpeg, .png'
+                      onChange={handleImageChange}
+                      size='2000000'
+                      className='absolute top-0 left-0 opacity-0 w-full h-full z-1 bg-[#494748] cursor-pointer'
+                      disabled={imagePreviews?.length >= 4}
+                      multiple
+                      name='property_images[]'
+                    />
+                    <Button
+                      className='cursor-pointer mt-4'
+                      disabled={imagePreviews?.length >= 4}
+                    >
+                      {isPhotoLoading ? (
+                        <Spinner sx={{ color: '#7148E5' }} />
+                      ) : (
+                        'Upload'
+                      )}
+                    </Button>
+                    <Typography className='mt-2 text-red-500'>
+                      Maximum 4 images
+                    </Typography>
+                  </div>
+                ) : (
+                  <div>
+                    <input
+                      type='file'
+                      accept='.jpg, .jpeg, .png'
+                      onChange={handleImageChange}
+                      multiple
+                      size='2000000'
+                      name='property_images[]'
+                      className='absolute top-0 left-0 opacity-0 w-full h-full z-1 bg-[#494748] cursor-pointer'
+                    />
+                    <div className='mt-1 flex justify-center px-6 pt-5 pb-6 border-2 border-gray-300 border-dashed rounded-md'>
+                      {isPhotoLoading ? (
+                        <Spinner sx={{ color: '#7148E5' }} />
+                      ) : (
+                        <div className='space-y-1 text-center'>
+                          <Icon
+                            icon='lucide:upload'
+                            className='mx-auto h-12 w-12 text-gray-400'
+                          />
+                          <div className='flex text-sm text-gray-600'>
+                            <label
+                              htmlFor='additional-images'
+                              className='relative cursor-pointer bg-white rounded-md font-medium text-indigo-600 hover:text-indigo-500 focus-within:outline-none focus-within:ring-2 focus-within:ring-offset-2 focus-within:ring-indigo-500'
+                            >
+                              <span>Upload files</span>
+                              <input
+                                id='additional-images'
+                                name='additional-images'
+                                type='file'
+                                className='sr-only'
+                                onChange={(e) =>
+                                  handleImageChange(e, 'additional')
+                                }
+                                accept='image/png, image/jpeg'
+                                multiple
+                              />
+                            </label>
+                            <p className='pl-1'>or drag and drop</p>
+                          </div>
+                          <p className='text-xs text-gray-500'>
+                            PNG or JPG up to 10MB each
+                          </p>
+                        </div>
+                      )}
+                    </div>
+                  </div>
+                )}
+              </div>
             </div>
 
             {!propertyBeingEdited && (
