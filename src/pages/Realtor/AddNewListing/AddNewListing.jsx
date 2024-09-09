@@ -553,16 +553,21 @@ const AddNewListing = () => {
                       <img
                         alt='profile'
                         src={imagePreview}
-                        className='object-cover h-[100px] w-[100px] '
+                        className='h-40 w-40 object-cover'
                       />
-
-                      <Icon
+                      <button
+                        className='bg-red-500 hover:bg-red-600 text-white px-2 py-1 rounded-md mt-2'
+                        onClick={handleClearFeatureImage}
+                      >
+                        Remove
+                      </button>
+                      {/* <Icon
                         icon='ic:outline-close'
                         className='absolute top-0 right-0 z-1 cursor-pointer text-red-500'
                         fontSize={34}
                         fontWeight={700}
                         onClick={handleClearFeatureImage}
-                      />
+                      /> */}
                     </div>
                   ) : (
                     <div>
@@ -624,15 +629,15 @@ const AddNewListing = () => {
                 {imagePreviews?.length > 0 && (
                   <div className='w-full h-[156px] border-2 border-dashed border-[#B5BDC9] flex items-center flex-wrap justify-center'>
                     {imagePreviews.map((preview, index) => (
-                      <div key={index} className='flex items-center'>
+                      <div key={index} className='flex items-center gap-4'>
                         <img
                           src={preview.url || preview}
                           alt='Preview'
-                          className='w-[156px] h-[56px] object-cover rounded-lg'
+                          className='h-20 w-20 rounded-lg object-cover"'
                         />
                         <Icon
                           icon='ic:outline-close'
-                          className='cursor-pointer text-red-500 z-10'
+                          className='bg-red-500 hover:bg-red-600 text-white px-2 py-1 rounded-md z-10'
                           fontSize={24}
                           fontWeight={700}
                           onClick={() => handleRemoveImage(index)}
