@@ -41,9 +41,9 @@ const Footer = () => {
             </div>
             <div>
               <h3 className='text-lg font-semibold mb-4'>Contact</h3>
-              <Typography>123 UK lane, UK 123 UK lane, UK</Typography>
+{/*               <Typography>123 UK lane, UK 123 UK lane, UK</Typography>
               <Typography>+447436354692</Typography>
-              <Typography>+234803389926</Typography>
+              <Typography>+234803389926</Typography> */}
               <Typography>info@skenny.org</Typography>
             </div>
             <div>
