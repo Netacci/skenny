@@ -1,101 +1,112 @@
-// import { Container } from '../../container';
-// import { Copyright } from './Copyright';
-// import { FooterMenu } from './FooterMenu';
-// import ctl from '@netlify/classnames-template-literals';
-import { Typography } from '@material-tailwind/react';
-import { Icon } from '@iconify/react';
+
+
+import { Mail, MapPin, Phone } from 'lucide-react';
 
 const Footer = () => {
   return (
     <>
-      <footer className='bg-gray-800 text-white py-8'>
-        <div className='px-4 lg:px-14 mx-auto '>
-          <div className='grid grid-cols-1 md:grid-cols-4 gap-8'>
-            <div>
-              <h3 className='text-lg font-semibold mb-4'>About Us</h3>
-              <p>
-                SKENNY HEIGHTS is a real estate company located in UK, dedicated
-                to finding your dream home.
-              </p>
-            </div>
-            <div>
-              <h3 className='text-lg font-semibold mb-4'>Links</h3>
-              <ul>
-                <li>
-                  <a href='#' className='hover:text-blue-400'>
-                    Pivacy policy
-                  </a>
-                </li>
-
-                <li>
-                  <a href='/about' className='hover:text-blue-400'>
-                    Careers
-                  </a>
-                </li>
-                <li>
-                  <a href='#' className='hover:text-blue-400'>
-                    Terms and condition
-                  </a>
-                </li>
-              </ul>
-            </div>
-            <div>
-              <h3 className='text-lg font-semibold mb-4'>Contact</h3>
-              <Typography>123 UK lane, UK 123 UK lane, UK</Typography>
-              <Typography>+447436354692</Typography>
-              <Typography>+234803389926</Typography>
-              <Typography>info@skenny.org</Typography>
-            </div>
-            <div>
-              <h3 className='text-lg font-semibold mb-4'>Newsletter</h3>
-              <form>
-                <input
-                  type='email'
-                  placeholder='Your email'
-                  className='w-full p-2 rounded mb-2 text-gray-800'
-                />
+         <footer className="bg-gray-900 text-white">
+      <div className="max-w-7xl mx-auto px-4 lg:px-8 py-16">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+          {/* Company Info */}
+          <div className="lg:col-span-2">
+            <h3 className="text-3xl font-bold bg-gradient-to-r from-blue-400 to-orange-400 bg-clip-text text-transparent mb-4">
+              SKENNY HEIGHTS
+            </h3>
+            <p className="text-gray-300 mb-6 max-w-md">
+              Your trusted partner in finding the perfect home. We specialize in luxury properties 
+              and provide exceptional service to help you make the right choice.
+            </p>
+            <div className="flex space-x-4">
+              {[
+                { icon: '📘', name: 'Facebook' },
+                { icon: '📸', name: 'Instagram' },
+                { icon: '🐦', name: 'Twitter' },
+                { icon: '💼', name: 'LinkedIn' }
+              ].map((social) => (
                 <button
-                  type='submit'
-                  className='bg-blue-600 text-white py-2 px-4 rounded hover:bg-blue-700 transition duration-300'
+                  key={social.name}
+                  className="w-10 h-10 bg-gray-800 rounded-full flex items-center justify-center hover:bg-gradient-to-r hover:from-blue-600 hover:to-orange-500 transition-all duration-200"
                 >
-                  Subscribe
+                  <span className="text-lg">{social.icon}</span>
                 </button>
-              </form>
+              ))}
             </div>
           </div>
-          <div className='mt-8 pt-8 border-t border-gray-700 flex flex-col md:flex-row justify-between items-center'>
-            <p>&copy; 2024 SKENNY HEIGHTS. All rights reserved.</p>
-            <div className='flex space-x-4 mt-4 md:mt-0'>
-              <a href='#' className='text-2xl hover:text-blue-400'>
-                <Icon icon='logos:facebook' />
-              </a>
-              <a href='#' className='text-2xl hover:text-blue-400'>
-                <Icon icon='skill-icons:instagram' />
-              </a>
-              <a href='#' className='text-2xl hover:text-blue-400'>
-                <Icon icon='skill-icons:twitter' />
-              </a>
-              <a href='#' className='text-2xl hover:text-blue-400'>
-                <Icon icon='skill-icons:linkedin' />
-              </a>
+
+          {/* Quick Links */}
+          <div>
+            <h4 className="text-lg font-semibold mb-4">Quick Links</h4>
+            <ul className="space-y-2">
+              {[
+                'Privacy Policy',
+                'Terms & Conditions',
+                'Careers',
+                'About Us',
+                'Contact Us'
+              ].map((link) => (
+                <li key={link}>
+                  <a href="#" className="text-gray-300 hover:text-white transition-colors">
+                    {link}
+                  </a>
+                </li>
+              ))}
+            </ul>
+          </div>
+
+          {/* Contact Info */}
+          <div>
+            <h4 className="text-lg font-semibold mb-4">Contact Info</h4>
+            <div className="space-y-3">
+              <div className="flex items-start space-x-3">
+                <MapPin size={18} className="text-blue-400 mt-1 flex-shrink-0" />
+                <span className="text-gray-300 text-sm">
+                  123 UK Lane, London, UK
+                </span>
+              </div>
+              <div className="flex items-center space-x-3">
+                <Phone size={18} className="text-blue-400 flex-shrink-0" />
+                <span className="text-gray-300 text-sm">+447436354692</span>
+              </div>
+              <div className="flex items-center space-x-3">
+                <Mail size={18} className="text-blue-400 flex-shrink-0" />
+                <span className="text-gray-300 text-sm">info@skenny.org</span>
+              </div>
             </div>
           </div>
         </div>
-      </footer>
+
+        {/* Newsletter */}
+        <div className="mt-12 pt-8 border-t border-gray-800">
+          <div className="flex flex-col lg:flex-row lg:items-center justify-between">
+            <div className="mb-4 lg:mb-0">
+              <h4 className="text-xl font-semibold mb-2">Stay Updated</h4>
+              <p className="text-gray-300">Get the latest property updates and market insights</p>
+            </div>
+            <div className="flex space-x-2 max-w-md w-full">
+              <input
+                type="email"
+                placeholder="Enter your email"
+                className="flex-1 px-4 py-3 bg-gray-800 border border-gray-700 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 text-white placeholder-gray-400"
+              />
+              <button className="px-6 py-3 bg-blue-600 from-blue-600 to-orange-500 text-white rounded-lg hover:shadow-lg transition-all duration-200">
+                Subscribe
+              </button>
+            </div>
+          </div>
+        </div>
+
+        {/* Copyright */}
+        <div className="mt-8 pt-8 border-t border-gray-800 text-center">
+          <p className="text-gray-400">
+            © 2024 SKENNY HEIGHTS. All rights reserved. Made with ❤️ for your dream home.
+          </p>
+        </div>
+      </div>
+    </footer>
     </>
   );
 };
 
-// const footerWrapperStyle = ctl(`
-// bg-primary-300
-// pb-10
-// relative
-// overflow-hidden
-// `);
-// const footerCircleStyle = ctl(`
-// absolute
-// opacity-[0.04]
-// right-0
 
-// `);
 export default Footer;

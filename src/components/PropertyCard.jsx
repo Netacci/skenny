@@ -1,7 +1,8 @@
 /* eslint-disable react/prop-types */
-import { Button } from '@material-tailwind/react';
-import { Icon } from '@iconify/react';
+
 import { useNavigate } from 'react-router-dom';
+import { Bath, Bed, Eye, Heart, MapPin, Maximize } from 'lucide-react';
+import { useState } from 'react';
 
 const PropertyCard = ({ property, link, realtor }) => {
   const {
@@ -15,80 +16,126 @@ const PropertyCard = ({ property, link, realtor }) => {
     status,
     id,
   } = property;
+  const [isFavorited, setIsFavorited] = useState(false);
+  const [imageLoaded, setImageLoaded] = useState(false);
   const location = `${city}, ${state}, ${country}`;
   const navigate = useNavigate();
+  //  onClick={() => navigate(`${link}/${id}`)}
+  const statusColors = {
+    pending: 'bg-yellow-100 text-yellow-800 border-yellow-200',
+    approved: 'bg-green-100 text-green-800 border-green-200',
+    rejected: 'bg-red-100 text-red-800 border-red-200',
+  };
 
   return (
-    <div className='max-w-sm rounded overflow-hidden shadow-lg hover:shadow-xl transition-shadow duration-300 bg-white'>
-      <img
-        className='w-full h-48 object-cover'
-        src={feature_image?.url}
-        alt={property_name}
-      />
-      <div className='px-6 py-4'>
-        <div className='font-bold text-xl mb-2'>{property_name}</div>
-        <p className='text-gray-700 text-base mb-2'>{location}</p>
-        <div className='flex items-center mb-2'>
-          {/* <Icon
-            icon='clarity:dollar-line'
-            className='h-5 w-5 text-green-500 mr-1'
-          /> */}
-          <Icon icon='mdi:naira' className='h-5 w-5 text-green-500 mr-1' />
+    <div className='group bg-white rounded-2xl shadow-lg hover:shadow-2xl transition-all duration-300 transform hover:-translate-y-2 overflow-hidden border border-gray-100'>
+      {/* Image Container */}
+      <div className='relative overflow-hidden'>
+        <img
+          className={`w-full h-64 object-cover group-hover:scale-110 transition-transform duration-700 ${
+            imageLoaded ? 'opacity-100' : 'opacity-0'
+          }`}
+          src={feature_image?.url}
+          alt={property_name}
+          onLoad={() => setImageLoaded(true)}
+        />
+        {!imageLoaded && (
+          <div className='w-full h-64 bg-gray-200 animate-pulse flex items-center justify-center'>
+            <div className='w-16 h-16 bg-gray-300 rounded-full' />
+          </div>
+        )}
 
-          <span className='font-semibold text-lg'>
-            {Intl.NumberFormat('en-US').format(
-              property_details?.property_price
-            ) || 'Available on request'}
-          </span>
-        </div>
-        <div className='flex justify-between items-center text-sm text-gray-600 gap-4'>
-          <div className='flex items-center'>
-            <Icon icon='ph:bed' className='h-4 w-4 mr-1' />
-            <span>{property_details?.property_beds || 0} beds</span>
-          </div>
-          <div className='flex items-center'>
-            <Icon icon='solar:bath-linear' className='h-4 w-4 mr-1' />
-            <span>{property_details?.property_baths || 0} bath(s)</span>
-          </div>
-          <div className='flex items-center'>
-            <Icon icon='hugeicons:toilet-01' className='h-4 w-4 mr-1' />
-            <span>{property_details?.property_toilets || 0} toilet(s)</span>
-          </div>
-          <div className='flex items-center'>
-            <Icon icon='lucide:maximize' className='h-4 w-4 mr-1' />
-            <span>{property_details?.property_area || 0} sqft</span>
-          </div>
-        </div>
-      </div>
-      <div className='px-6 pt-4 pb-2 flex justify-between'>
-        <span className='inline-block bg-gray-200 rounded-full px-3 py-1 text-sm font-semibold text-gray-700 mr-2 mb-2'>
-          {property_details?.property_type}
-        </span>
-        {/* <button className='float-right text-red-500 hover:text-red-600'>
-          <Icon icon='ph:heart' className='h-6 w-6' />
-        </button> */}
-        {realtor ? (
-          <span
-            className={`inline-block rounded-full px-3 py-1 text-sm capitalize mr-2 mb-2 ${
-              status === 'pending'
-                ? 'bg-yellow-800'
-                : status === 'approved'
-                ? 'bg-green-400'
-                : 'bg-red-400'
-            }`}
+        {/* Overlay Actions */}
+        <div className='absolute top-4 right-4 flex space-x-2'>
+          <button
+            onClick={() => setIsFavorited(!isFavorited)}
+            className='p-2 bg-white/90 backdrop-blur-sm rounded-full shadow-lg hover:bg-white transition-colors'
           >
-            {status}
+            <Heart
+              size={20}
+              className={
+                isFavorited ? 'fill-red-500 text-red-500' : 'text-gray-600'
+              }
+            />
+          </button>
+
+          {realtor && (
+            <div
+              className={`px-3 py-1 rounded-full text-xs font-semibold border ${
+                statusColors[status] || statusColors.pending
+              }`}
+            >
+              {property_details?.property_status}
+            </div>
+          )}
+        </div>
+
+        {/* Property Type Badge */}
+        <div className='absolute bottom-4 left-4'>
+          <span className='px-3 py-1 bg-gradient-to-r from-blue-600 to-orange-500 text-white text-sm font-semibold rounded-full'>
+            {property_details?.property_type}
           </span>
-        ) : null}
+        </div>
       </div>
 
-      <div className='px-6 pb-4'>
-        <Button
+      {/* Content */}
+      <div className='p-6'>
+        <h3 className='text-xl font-bold text-gray-900 mb-2 group-hover:text-blue-600 transition-colors'>
+          {property_name}
+        </h3>
+
+        <div className='flex items-center text-gray-600 mb-4'>
+          <MapPin size={16} className='mr-1 flex-shrink-0' />
+          <span className='text-sm truncate'>{location}</span>
+        </div>
+
+        {/* Price */}
+        <div className='flex items-center mb-4'>
+          <span className='text-sm text-gray-500 mr-1'>₦</span>
+          <span className='text-2xl font-bold text-gray-900'>
+            {property_details?.property_price
+              ? Intl.NumberFormat('en-US').format(
+                  property_details.property_price
+                )
+              : 'Available on request'}
+          </span>
+        </div>
+
+        {/* Property Details */}
+        <div className='grid grid-cols-2 gap-3 mb-6'>
+          <div className='flex items-center text-gray-600'>
+            <Bed size={16} className='mr-2 text-blue-500' />
+            <span className='text-sm'>
+              {property_details?.property_beds || 0} beds
+            </span>
+          </div>
+          <div className='flex items-center text-gray-600'>
+            <Bath size={16} className='mr-2 text-blue-500' />
+            <span className='text-sm'>
+              {property_details?.property_baths || 0} baths
+            </span>
+          </div>
+          <div className='flex items-center text-gray-600'>
+            <Maximize size={16} className='mr-2 text-blue-500' />
+            <span className='text-sm'>
+              {property_details?.property_area || 0} sqft
+            </span>
+          </div>
+          <div className='flex items-center text-gray-600'>
+            <Eye size={16} className='mr-2 text-blue-500' />
+            <span className='text-sm'>
+              {property_details?.property_toilets || 0} toilets
+            </span>
+          </div>
+        </div>
+
+        {/* Action Button */}
+        <button
           onClick={() => navigate(`${link}/${id}`)}
-          className='w-full bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded'
+          className='w-full bg-blue-600  text-white py-3 px-4 rounded-xl font-semibold hover:shadow-lg transform hover:scale-105 transition-all duration-200'
         >
           View Details
-        </Button>
+        </button>
       </div>
     </div>
   );

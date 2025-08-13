@@ -35,6 +35,9 @@ const App = () => {
   const ResetPassword = lazy(() =>
     import('./pages/RealtorAuth/Login/ResetPassword.jsx')
   );
+  const LeaseProperty = lazy(() =>
+    import('./pages/LeaseProperty/LeaseProperty.jsx')
+  );
 
   const Checkout = lazy(() => import('./pages/Checkout/Checkout'));
 
@@ -46,6 +49,14 @@ const App = () => {
           element={
             <Suspense>
               <Register />
+            </Suspense>
+          }
+        />
+          <Route
+          path={ROUTES.lease}
+          element={
+            <Suspense>
+              <LeaseProperty />
             </Suspense>
           }
         />

@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 import { useNavigate } from 'react-router-dom';
 import Layout from '../../../components/layout/Layout';
 import {
@@ -666,7 +667,7 @@ const AddNewListing = () => {
                       {isPhotoLoading ? (
                         <Spinner sx={{ color: '#7148E5' }} />
                       ) : (
-                        'Upload'
+                        'Add more images'
                       )}
                     </Button>
                     <Typography className='mt-2 text-red-500'>
@@ -742,10 +743,16 @@ const AddNewListing = () => {
               </div>
             )}
 
-            <div>
+            <div className='mt-6 flex items-center gap-4 '>
+              <button
+                className='text-gray-600 bg-white border border-gray-300 focus:outline-none hover:bg-gray-100 focus:ring-4 focus:ring-gray-200 font-medium rounded-lg text-sm px-5 py-2.5  '
+                onClick={() => navigate(ROUTES.realtorsProperties)}
+              >
+                Cancel
+              </button>
               <Button
                 type='submit'
-                className='w-full flex justify-center py-2 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500'
+                className='flex justify-center py-2 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500'
               >
                 {loading ? (
                   <Spinner />
