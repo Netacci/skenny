@@ -21,7 +21,6 @@ import {
 import 'swiper/css';
 import 'swiper/css/effect-coverflow';
 import 'swiper/css/pagination';
-import { Icon } from '@iconify/react';
 import { ROUTES } from '../../../utils/routes';
 import { Toaster } from 'react-hot-toast';
 import {
@@ -29,6 +28,7 @@ import {
   showToastMessage,
 } from '../../../components/toast/toast';
 import SingleProperty from '../../../components/SingleProperty';
+import { ArrowLeft, Edit, Trash2 } from 'lucide-react';
 
 const RealtorProperty = () => {
   const { property, loading } = useSelector((state) => state.properties);
@@ -72,35 +72,47 @@ const RealtorProperty = () => {
   return (
     <Layout>
       {!loading ? (
-        <Card className='  bg-opacity-20  px-4 py-2 lg:px-14 lg:py-4'>
-          <div className='flex justify-between items-center'>
-            <Icon
-              icon='material-symbols:arrow-back'
-              fontSize={24}
-              className='cursor-pointer text-blue-900'
-              onClick={() => navigate(ROUTES.realtorsProperties)}
-            />
-            <div className='flex items-center gap-4 justify-end'>
-              <Icon
-                icon='ic:baseline-edit'
-                fontSize={24}
-                className='cursor-pointer text-blue-900'
-                onClick={handleEditRedirect}
-              />
-              <Icon
-                icon='ic:baseline-delete'
-                fontSize={24}
-                className='cursor-pointer text-blue-900'
-                onClick={handleDeleteModal}
-              />
-            </div>
+         <div className='max-w-7xl mx-auto px-4 py-6'>
+        <div className='flex justify-between items-center mb-6'>
+          <Button
+            variant='text'
+            className='flex items-center gap-2 text-blue-900 hover:bg-blue-50 px-3 py-2'
+            onClick={() => navigate(ROUTES.realtorsProperties)}
+          >
+            <ArrowLeft size={20} />
+            <span className='hidden sm:inline'>Back to Properties</span>
+          </Button>
+
+          <div className='flex items-center gap-2'>
+            <Button
+              variant='outlined'
+              className='flex items-center gap-2 border-blue-900 text-blue-900 hover:bg-blue-50'
+              onClick={handleEditRedirect}
+            >
+              <Edit size={16} />
+              <span className='hidden sm:inline'>Edit</span>
+            </Button>
+            
+            <Button
+              variant='outlined'
+              className='flex items-center gap-2 border-red-500 text-red-500 hover:bg-red-50'
+              onClick={handleDeleteModal}
+            >
+              <Trash2 size={16} />
+              <span className='hidden sm:inline'>Delete</span>
+            </Button>
           </div>
-          <SingleProperty property={property} />
-        </Card>
-      ) : (
-        <div className='flex flex-col items-center justify-center h-screen'>
-          <Spinner />
         </div>
+        <Card className='bg-white shadow-lg overflow-hidden'>
+          <div className='p-6'>
+          <SingleProperty property={property} />
+             </div>
+        </Card>
+        </div>
+      ) : (
+     <div className='flex justify-center items-center py-16'>
+            <div className='animate-spin rounded-full h-12 w-12 border-b-2 border-blue-600'></div>
+          </div>
       )}
       <Dialog size='xs' open={openDeleteProperty} handler={setDeleteProperty}>
         <Toaster />

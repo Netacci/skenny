@@ -148,7 +148,7 @@ console.log(openProfile)
                     className='flex items-center space-x-2 p-2 rounded-full hover:bg-gray-100 transition-colors cursor-pointer'
                   >
                     <div className='w-8 h-8 bg-gradient-to-r from-blue-500 to-orange-500 rounded-full flex items-center justify-center text-white text-sm font-medium'>
-                      {user?.first_name?.[0]} {user?.last_name?.[0]}
+                      {user?.first_name?.[0]}
                     </div>
                     <span className='text-sm font-medium text-gray-700'>
                       {user?.first_name}

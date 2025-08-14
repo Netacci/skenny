@@ -5,12 +5,15 @@ import { useDispatch, useSelector } from 'react-redux';
 import { getRealtorProperties } from '../../../redux/realtor/propertiesSlice';
 import { CheckCircle, Clock, Eye, Plus, Search, XCircle } from 'lucide-react';
 import PropertyCard from '../../../components/PropertyCard';
+import { ROUTES } from '../../../utils/routes';
+import { useNavigate } from 'react-router-dom';
 
 const RealtorProperties = () => {
   const dispatch = useDispatch();
   const { properties, metadata, loading } = useSelector(
     (state) => state.properties
   );
+  const navigate = useNavigate();
   const [search, setSearch] = useState('');
   const [page, setPage] = useState(1);
   const [limit, setLimit] = useState(10);
@@ -162,7 +165,7 @@ const RealtorProperties = () => {
             </select>
 
             {/* Add Property Button */}
-            <button className='px-6 py-3 bg-gradient-to-r from-blue-600 to-orange-500 text-white rounded-lg hover:shadow-lg transform hover:scale-105 transition-all duration-200 flex items-center space-x-2'>
+            <button onClick={() => navigate(ROUTES.addNewListing)} className='px-6 py-3 bg-gradient-to-r from-blue-600 to-orange-500 text-white rounded-lg hover:shadow-lg transform hover:scale-105 transition-all duration-200 flex items-center space-x-2'>
               <Plus size={20} />
               <span>Add Property</span>
             </button>
@@ -184,7 +187,7 @@ const RealtorProperties = () => {
                 : 'Start by adding your first property listing'
               }
             </p>
-            <button className='px-6 py-3 bg-gradient-to-r from-blue-600 to-orange-500 text-white rounded-lg hover:shadow-lg transition-all duration-200 inline-flex items-center space-x-2'>
+            <button onClick={() => navigate(ROUTES.addNewListing)} className='px-6 py-3 bg-gradient-to-r from-blue-600 to-orange-500 text-white rounded-lg hover:shadow-lg transition-all duration-200 inline-flex items-center space-x-2'>
               <Plus size={20} />
               <span>Add Your First Property</span>
             </button>

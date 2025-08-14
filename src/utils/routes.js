@@ -3,7 +3,7 @@ export const ROUTES = {
   home: '/',
   login: '/login',
   properties: '/properties',
-  lease : '/lease-property',
+  lease : '/lease-property/:id',
   contact: '/contact',
   property: '/properties/:id',
   register: '/register',

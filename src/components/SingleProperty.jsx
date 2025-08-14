@@ -209,7 +209,7 @@ const SingleProperty = ({ property }) => {
 
               {/* Contact Form */}
               <div className="space-y-4">
-                <button onClick={()=>navigate('/lease-property')} className="w-full bg-blue-600  text-white py-3 px-4 rounded-xl font-semibold hover:shadow-lg transform hover:scale-105 transition-all duration-200 flex items-center justify-center space-x-2">
+                <button onClick={()=>navigate(`/lease-property/${property?.id}`)} className="w-full bg-blue-600  text-white py-3 px-4 rounded-xl font-semibold hover:shadow-lg transform hover:scale-105 transition-all duration-200 flex items-center justify-center space-x-2">
                   {/* <Calendar size={20} /> */}
                   <span>Lease Property</span>
                 </button>
