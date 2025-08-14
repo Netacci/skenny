@@ -871,7 +871,8 @@ const LeaseProperty = () => {
                     <Button
                       type='submit'
                       className='flex items-center gap-2 bg-indigo-600 hover:bg-indigo-700'
-                      disabled={loading}
+                      // disabled={loading}
+                            disabled
                     >
                       {loading ? (
                         <Spinner size='sm' />
