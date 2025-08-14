@@ -17,8 +17,7 @@ const dropdownRef = useRef(null);
     navigate('/login');
     window.location.reload();
   };
-console.log(openProfile)
-  // console.log(path);
+
   useEffect(() => {
     window.addEventListener(
       'resize',

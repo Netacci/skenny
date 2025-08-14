@@ -165,7 +165,7 @@ const RealtorProperties = () => {
             </select>
 
             {/* Add Property Button */}
-            <button onClick={() => navigate(ROUTES.addNewListing)} className='px-6 py-3 bg-gradient-to-r from-blue-600 to-orange-500 text-white rounded-lg hover:shadow-lg transform hover:scale-105 transition-all duration-200 flex items-center space-x-2'>
+            <button onClick={() => navigate(ROUTES.addNewListing)} className='px-6 py-3 bg-blue-600 text-white rounded-lg hover:shadow-lg transform hover:scale-105 transition-all duration-200 flex items-center space-x-2'>
               <Plus size={20} />
               <span>Add Property</span>
             </button>
