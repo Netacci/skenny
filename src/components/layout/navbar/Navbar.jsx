@@ -236,6 +236,10 @@ const dropdownRef = useRef(null);
 
                   {profileMenuItems.map((item) => (
                     <button
+                       onClick={() => {
+                              item.click();
+                             
+                            }}
                       key={item.label}
                       className={`w-full px-4 py-2 text-left flex items-center space-x-2 hover:bg-gray-50 rounded-md transition-colors ${
                         item.isLast
