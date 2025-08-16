@@ -8,8 +8,9 @@ import 'swiper/css/pagination';
 import { useState } from 'react';
 import { Bath, Bed,  ChevronLeft, ChevronRight, Eye, Heart, Mail, MapPin, Maximize, Phone } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
+import TenancyRequestsTable from '../pages/Realtor/RealtorProperties/components/TenancyRequest';
 
-const SingleProperty = ({ property }) => {
+const SingleProperty = ({ property, realtor }) => {
   const location = `${property?.city}, ${property?.state}, ${property?.country}`;
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
 
@@ -282,6 +283,9 @@ const SingleProperty = ({ property }) => {
           </div>
         </div>
       </div>
+      {/* Tenancy rewuest table */}
+{realtor ?  <TenancyRequestsTable requests={property?.tenancyRequests}/> : null}
+     
     </div>
   );
 };

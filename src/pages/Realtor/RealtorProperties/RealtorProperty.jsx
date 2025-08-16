@@ -105,7 +105,7 @@ const RealtorProperty = () => {
         </div>
         <Card className='bg-white shadow-lg overflow-hidden'>
           <div className='p-6'>
-          <SingleProperty property={property} />
+          <SingleProperty realtor property={property} />
              </div>
         </Card>
         </div>

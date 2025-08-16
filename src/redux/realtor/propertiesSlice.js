@@ -125,6 +125,7 @@ export const addProperty = createAsyncThunk(
     }
   }
 );
+// get All properties for public users
 export const getAllProperties = createAsyncThunk(
   'get/allProperties',
   async ({ search, page, limit, state, country, propertyType }, thunkAPI) => {
@@ -164,11 +165,13 @@ export const getAllProperties = createAsyncThunk(
     }
   }
 );
+
+// get single property for public users
 export const getSingleProperty = createAsyncThunk(
   'get/singleProperty',
   async (id, thunkAPI) => {
     try {
-      const response = await userRequest.get(`users/properties/${id}`);
+      const response = await publicRequest.get(`users/properties/${id}`);
 
       return response.data;
     } catch (error) {
@@ -176,6 +179,20 @@ export const getSingleProperty = createAsyncThunk(
     }
   }
 );
+// Send lease form to realtor for public users
+export const leaseProperty = createAsyncThunk(
+  'lease/property',
+  async ({data, id}, thunkAPI) => {
+    console.log(data, id)
+    try {
+      const response = await publicRequest.post(`users/properties/${id}/lease`, data);
+      return response.data;
+    } catch (error) {
+      return thunkAPI.rejectWithValue(error);
+    }
+  }
+  
+)
 export const propertiesSlice = createSlice({
   name: 'properties',
   initialState,

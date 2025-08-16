@@ -28,6 +28,7 @@ import {
 import {
   addProperty,
   getSingleProperty,
+  leaseProperty,
   uploadPropertyImage,
 } from '../../redux/realtor/propertiesSlice';
 import {
@@ -36,6 +37,7 @@ import {
 } from '../../components/toast/toast';
 import { ROUTES } from '../../utils/routes';
 import Layout from '../../components/layout/Layout';
+import { Toaster } from 'react-hot-toast';
 
 const LeaseProperty = () => {
   const navigate = useNavigate();
@@ -49,7 +51,7 @@ const LeaseProperty = () => {
 
   const [currentStep, setCurrentStep] = useState(1);
   const [isPhotoLoading, setIsPhotoLoading] = useState(false);
-  const [state, setState] = useState( '');
+  const [state, setState] = useState('');
   const [loading, setLoading] = useState(false);
   const [imagePreview, setImagePreview] = useState(null);
   const [imageFile, setImageFile] = useState(null);
@@ -60,28 +62,28 @@ const LeaseProperty = () => {
   const { handleSubmit, register, setValue, watch, trigger } = useForm({
     mode: 'onChange',
     defaultValues: {
-      lastName:  '',
-      firstName:  '',
-      address:  '',
-      phoneNumber:  '',
-      stateOfOrigin:  '',
-      lga:  '',
-      nationality:  '',
-      religion:  '',
-      addressOfHomeTown:  '',
-      occupation:  '',
-      designation:  '',
-      companyName:  '',
-      companyAddress:  '',
+      lastName: '',
+      firstName: '',
+      email: '',
+      address: '',
+      phoneNumber: '',
+      stateOfOrigin: '',
+      lga: '',
+      nationality: '',
+      religion: '',
+      addressOfHomeTown: '',
+      occupation: '',
+      designation: '',
+      companyName: '',
+      companyAddress: '',
       residentialAddress: '',
       relocationReason: '',
       numberOfOccupants: '',
-      apartmentType:  '',
-      rentPayer:  '',
-      guarantorName:  '',
-      date:  null,
-      addressOfRelative:  '',
-      natureOfRelationship:  '',
+      apartmentType: '',
+      rentPayer: '',
+      guarantorName: '',
+      addressOfRelative: '',
+      natureOfRelationship: '',
       gurantorPhoneNumber: '',
       tenantImage: null,
     },
@@ -97,6 +99,7 @@ const LeaseProperty = () => {
       fields: [
         'firstName',
         'lastName',
+        'email',
         'address',
         'phoneNumber',
         'stateOfOrigin',
@@ -130,7 +133,6 @@ const LeaseProperty = () => {
         'guarantorName',
         'gurantorPhoneNumber',
         'addressOfRelative',
-        'date',
         'natureOfRelationship',
       ],
     },
@@ -187,36 +189,37 @@ const LeaseProperty = () => {
     }
   };
 
-  const handleCreateProperty = async (data) => {
+  const handleLeaseProperty = async (data) => {
     setLoading(true);
-    let allPublicIds = [];
-    const singleFormData = new FormData();
+    // let allPublicIds = [];
+    // const singleFormData = new FormData();
 
     // Handle feature image
-    if (imageFile) {
-      if (imageFile instanceof File) {
-        singleFormData.append('feature_image', imageFile);
-      } else {
-        allPublicIds.push(imageFile.public_id);
-      }
-    }
+    // if (imageFile) {
+    //   if (imageFile instanceof File) {
+    //     singleFormData.append('feature_image', imageFile);
+    //   } else {
+    //     allPublicIds.push(imageFile.public_id);
+    //   }
+    // }
 
     try {
-      let featureImageUrl;
+      // let featureImageUrl;
 
-      // Upload new feature image if it's a File
-      if (imageFile instanceof File) {
-        const response = await dispatch(
-          uploadPropertyImage(singleFormData)
-        ).unwrap();
-        featureImageUrl = response.feature_image;
-      } else {
-        featureImageUrl = imageFile;
-      }
+      // // Upload new feature image if it's a File
+      // if (imageFile instanceof File) {
+      //   const response = await dispatch(
+      //     uploadPropertyImage(singleFormData)
+      //   ).unwrap();
+      //   featureImageUrl = response.feature_image;
+      // } else {
+      //   featureImageUrl = imageFile;
+      // }
 
       const submitData = {
         firstName: data.firstName,
         lastName: data.lastName,
+        email: data.email,
         address: data.address,
         phoneNumber: data.phoneNumber,
         stateOfOrigin: data.stateOfOrigin,
@@ -234,24 +237,17 @@ const LeaseProperty = () => {
         apartmentType: data.apartmentType,
         rentPayer: data.rentPayer,
         guarantorName: data.guarantorName,
-        date: data.date,
         addressOfRelative: data.addressOfRelative,
         natureOfRelationship: data.natureOfRelationship,
         gurantorPhoneNumber: data.gurantorPhoneNumber,
-        tenantImage: JSON.stringify(featureImageUrl),
-        all_public_ids: allPublicIds,
+        // tenantImage: JSON.stringify(featureImageUrl),
+        // all_public_ids: allPublicIds,
       };
-
-    
-      
-
-  
-      
-        await dispatch(addProperty(submitData)).unwrap();
-        setLoading(false);
-        showToastMessage('Submitted successfully');
-        navigate(ROUTES.realtorsProperties);
-      
+      console.log(submitData);
+      await dispatch(leaseProperty({ data: submitData, id })).unwrap();
+      setLoading(false);
+      showToastMessage('Request submitted successfully');
+      navigate(ROUTES.realtorsProperties);
     } catch (error) {
       setLoading(false);
       showErrorMessage(
@@ -294,7 +290,21 @@ const LeaseProperty = () => {
             {...register('lastName', { required: 'Last name is required' })}
           />
         </div>
-
+        <div>
+          <label
+            htmlFor='email'
+            className='block text-sm font-medium text-gray-700 mb-2'
+          >
+            Email
+          </label>
+          <Input
+            size='lg'
+            className='!border-t-indigo-300'
+            name='email'
+            type='email'
+            {...register('email')}
+          />
+        </div>
         <div>
           <label
             htmlFor='address'
@@ -401,7 +411,7 @@ const LeaseProperty = () => {
           />
         </div>
 
-        <div className='md:col-span-2'>
+        <div>
           <label
             htmlFor='addressOfHomeTown'
             className='block text-sm font-medium text-gray-700 mb-2'
@@ -621,21 +631,6 @@ const LeaseProperty = () => {
           />
         </div>
 
-        <div>
-          <label
-            htmlFor='date'
-            className='block text-sm font-medium text-gray-700 mb-2'
-          >
-            Date
-          </label>
-          <Input
-            size='lg'
-            className='!border-t-indigo-300'
-            type='date'
-            name='date'
-            {...register('date')}
-          />
-        </div>
 
         <div>
           <label
@@ -666,73 +661,70 @@ const LeaseProperty = () => {
           Tenant Image
         </label>
 
-    
-          <div className='relative'>
-            {imagePreview ? (
-              <div className='flex items-center gap-4'>
-                <img
-                  alt='profile'
-                  src={imagePreview}
-                  className='h-40 w-40 object-cover rounded-lg'
-                />
-                <Button
-                  variant='outlined'
-                  color='red'
-                  className='flex items-center gap-2'
-                  onClick={handleClearFeatureImage}
-                >
-                  <X size={16} />
-                  Remove
-                </Button>
-              </div>
-            ) : (
-              <div>
-                <input
-                  type='file'
-                  accept='.jpg, .jpeg, .png'
-                  name='feature_image'
-                  onChange={handleFileChange}
-                  className='absolute top-0 left-0 opacity-0 w-full h-full cursor-pointer'
-                />
-                <div className='flex justify-center px-6 pt-5 pb-6 border-2 border-gray-300 border-dashed rounded-md hover:border-gray-400 transition-colors'>
-                  {isPhotoLoading ? (
-                    <Spinner />
-                  ) : (
-                    <div className='space-y-2 text-center'>
-                      <Upload className='mx-auto h-12 w-12 text-gray-400' />
-                      <div className='text-sm text-gray-600'>
-                        <span className='font-medium text-indigo-600 cursor-pointer hover:text-indigo-500'>
-                          Upload tenant image
-                        </span>
-                        <p className='mt-1'>or drag and drop</p>
-                      </div>
-                      <p className='text-xs text-gray-500'>
-                        PNG or JPG up to 5MB
-                      </p>
+        <div className='relative'>
+          {imagePreview ? (
+            <div className='flex items-center gap-4'>
+              <img
+                alt='profile'
+                src={imagePreview}
+                className='h-40 w-40 object-cover rounded-lg'
+              />
+              <Button
+                variant='outlined'
+                color='red'
+                className='flex items-center gap-2'
+                onClick={handleClearFeatureImage}
+              >
+                <X size={16} />
+                Remove
+              </Button>
+            </div>
+          ) : (
+            <div>
+              <input
+                type='file'
+                accept='.jpg, .jpeg, .png'
+                name='feature_image'
+                onChange={handleFileChange}
+                className='absolute top-0 left-0 opacity-0 w-full h-full cursor-pointer'
+              />
+              <div className='flex justify-center px-6 pt-5 pb-6 border-2 border-gray-300 border-dashed rounded-md hover:border-gray-400 transition-colors'>
+                {isPhotoLoading ? (
+                  <Spinner />
+                ) : (
+                  <div className='space-y-2 text-center'>
+                    <Upload className='mx-auto h-12 w-12 text-gray-400' />
+                    <div className='text-sm text-gray-600'>
+                      <span className='font-medium text-indigo-600 cursor-pointer hover:text-indigo-500'>
+                        Upload tenant image
+                      </span>
+                      <p className='mt-1'>or drag and drop</p>
                     </div>
-                  )}
-                </div>
+                    <p className='text-xs text-gray-500'>
+                      PNG or JPG up to 5MB
+                    </p>
+                  </div>
+                )}
               </div>
-            )}
-          </div>
-        
+            </div>
+          )}
+        </div>
       </div>
 
       {/* Terms and Conditions */}
-     
-        <div className='flex items-center mt-6'>
-          <input
-            id='terms'
-            name='terms'
-            type='checkbox'
-            className='h-4 w-4 text-indigo-600 focus:ring-indigo-500 border-gray-300 rounded'
-            required
-          />
-          <label htmlFor='terms' className='ml-2 block text-sm text-gray-900'>
-            I agree to the Terms and Conditions
-          </label>
-        </div>
 
+      <div className='flex items-center mt-6'>
+        <input
+          id='terms'
+          name='terms'
+          type='checkbox'
+          className='h-4 w-4 text-indigo-600 focus:ring-indigo-500 border-gray-300 rounded'
+          required
+        />
+        <label htmlFor='terms' className='ml-2 block text-sm text-gray-900'>
+          I agree to the Terms and Conditions
+        </label>
+      </div>
     </div>
   );
 
@@ -751,10 +743,11 @@ const LeaseProperty = () => {
 
   return (
     <Layout>
+      <Toaster />
       <div className='max-w-4xl mx-auto px-4 py-6'>
         <div className='mb-8'>
           <h1 className='text-3xl font-bold text-gray-900 mb-2'>
-           Tenancy Form for {singleProperty?.property_name} 
+            Tenancy Form for {singleProperty?.property_name}
           </h1>
           <p className='text-gray-600'>
             Complete all steps to submit your tenancy application
@@ -827,7 +820,7 @@ const LeaseProperty = () => {
         <Card>
           <CardBody>
             <form
-              onSubmit={handleSubmit(handleCreateProperty)}
+              onSubmit={handleSubmit(handleLeaseProperty)}
               className='space-y-6'
             >
               {renderStepContent()}
@@ -871,14 +864,9 @@ const LeaseProperty = () => {
                     <Button
                       type='submit'
                       className='flex items-center gap-2 bg-indigo-600 hover:bg-indigo-700'
-                      // disabled={loading}
-                            disabled
+                      disabled={loading}
                     >
-                      {loading ? (
-                        <Spinner size='sm' />
-                      ) : (
-                        'Submit Application'
-                      )}
+                      {loading ? <Spinner size='sm' /> : 'Submit Application'}
                     </Button>
                   )}
                 </div>

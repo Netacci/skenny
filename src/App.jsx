@@ -39,6 +39,10 @@ const App = () => {
     import('./pages/LeaseProperty/LeaseProperty.jsx')
   );
 
+  const TenancyDetail = lazy(() =>
+    import('./pages/Realtor/RealtorProperties/components/TenancyDetail.jsx')
+  );
+
   const Checkout = lazy(() => import('./pages/Checkout/Checkout'));
 
   return (
@@ -84,6 +88,16 @@ const App = () => {
             <Suspense>
               <PrivateRoute>
                 <Settings />
+              </PrivateRoute>
+            </Suspense>
+          }
+        />
+           <Route
+          path={ROUTES.tenancyRequestDetail}
+          element={
+            <Suspense>
+              <PrivateRoute>
+                <TenancyDetail />
               </PrivateRoute>
             </Suspense>
           }

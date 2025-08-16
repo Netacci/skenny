@@ -4,6 +4,7 @@ export const ROUTES = {
   login: '/login',
   properties: '/properties',
   lease : '/lease-property/:id',
+  tenancyRequestDetail: '/tenancy-request/:id',
   contact: '/contact',
   property: '/properties/:id',
   register: '/register',
