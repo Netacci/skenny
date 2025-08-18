@@ -155,8 +155,8 @@ const TenancyRequestDetail = () => {
               <Section title='Tenancy Details' icon='key'>
                 <div className='grid grid-cols-1 md:grid-cols-2 gap-6'>
                   <Detail
-                    label='Apartment Type'
-                    value={request.apartmentType}
+                    label='Flat/Apartment Number'
+                    value={request.apartmentNumber}
                   />
                   <Detail
                     label='Number of Occupants'
