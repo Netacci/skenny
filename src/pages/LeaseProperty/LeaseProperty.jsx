@@ -79,7 +79,7 @@ const LeaseProperty = () => {
       residentialAddress: '',
       relocationReason: '',
       numberOfOccupants: '',
-      apartmentType: '',
+      apartmentNumber: '',
       rentPayer: '',
       guarantorName: '',
       addressOfRelative: '',
@@ -121,7 +121,7 @@ const LeaseProperty = () => {
         'residentialAddress',
         'relocationReason',
         'numberOfOccupants',
-        'apartmentType',
+        'apartmentNumber',
         'rentPayer',
       ],
     },
@@ -234,7 +234,7 @@ const LeaseProperty = () => {
         residentialAddress: data.residentialAddress,
         relocationReason: data.relocationReason,
         numberOfOccupants: data.numberOfOccupants,
-        apartmentType: data.apartmentType,
+        apartmentNumber: data.apartmentNumber,
         rentPayer: data.rentPayer,
         guarantorName: data.guarantorName,
         addressOfRelative: data.addressOfRelative,
@@ -531,17 +531,17 @@ const LeaseProperty = () => {
 
         <div>
           <label
-            htmlFor='apartmentType'
+            htmlFor='apartmentNumber'
             className='block text-sm font-medium text-gray-700 mb-2'
           >
-            Apartment Desired (Upstairs/Downstairs)
+            Flat/Apartment Number(if applicable)
           </label>
           <Input
             size='lg'
             className='!border-t-indigo-300'
-            type='text'
-            name='apartmentType'
-            {...register('apartmentType')}
+            type='number'
+            name='apartmentNumber'
+            {...register('apartmentNumber')}
           />
         </div>
 
