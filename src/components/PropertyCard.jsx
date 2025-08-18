@@ -93,7 +93,7 @@ const PropertyCard = ({ property, link, realtor }) => {
         <div className='flex items-center mb-4'>
           <span className='text-sm text-gray-500 mr-1'>₦</span>
           <span className='text-2xl font-bold text-gray-900'>
-            {property_details?.property_price
+            {property_details?.property_price > 0
               ? Intl.NumberFormat('en-US').format(
                   property_details.property_price
                 )
