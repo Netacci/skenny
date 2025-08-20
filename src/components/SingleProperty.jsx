@@ -243,7 +243,7 @@ const SingleProperty = ({ property, realtor }) => {
                   className='w-full bg-blue-600  text-white py-3 px-4 rounded-xl font-semibold hover:shadow-lg transform hover:scale-105 transition-all duration-200 flex items-center justify-center space-x-2'
                 >
                   {/* <Calendar size={20} /> */}
-                  <span>Lease Property</span>
+                  <span>Rent Property</span>
                 </button>
 
                 <button className='w-full border border-gray-300 text-gray-700 py-3 px-4 rounded-xl font-semibold hover:bg-gray-50 transition-colors flex items-center justify-center space-x-2'>
