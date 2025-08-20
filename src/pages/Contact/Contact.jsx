@@ -22,12 +22,12 @@ const Contact = () => {
               >
                 Let&apos;s talk
               </Typography>
-              <Typography variant='h6' color='blue-gray' className='mb-2'>
+              {/* <Typography variant='h6' color='blue-gray' className='mb-2'>
                 Our Location
               </Typography>
               <Typography color='gray' className='mb-8 font-normal'>
                 334 Uk lane Uk lane Uk lane
-              </Typography>
+              </Typography> */}
               <Typography variant='h6' color='blue-gray' className='mb-2'>
                 Email address
               </Typography>
@@ -42,21 +42,21 @@ const Contact = () => {
               <Typography variant='h6' color='blue-gray' className='mb-2'>
                 Phone Number
               </Typography>
-              <Typography
+              {/* <Typography
                 as='a'
                 href='tel:+447436354692'
                 color='gray'
                 className='mb-8 font-normal'
               >
                 +447436354692
-              </Typography>
+              </Typography> */}
               <Typography
                 as='a'
                 href='tel:+234803389926'
                 color='gray'
                 className='mb-8 font-normal'
               >
-                +234803389926
+               +2348057202299
               </Typography>
             </CardBody>
           </Card>
